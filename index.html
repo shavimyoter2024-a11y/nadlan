@@ -1,0 +1,966 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>קורס נדל״ן | שווים יותר · קהילת משרתי המילואים</title>
+  <meta name="description" content="קורס הנדל״ן של קהילת שווים יותר: מהשטח לשוק הנדל״ן. סוגי עסקאות, מימון ומשכנתאות, מיסוי ופרקטיקה מהשטח, בהתאמה למשרתי מילואים וכוחות הביטחון." />
+  <meta property="og:title" content="קורס נדל״ן | שווים יותר" />
+  <meta property="og:description" content="מהשטח לשוק הנדל״ן: קורס לקהילת משרתי המילואים וכוחות הביטחון." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="he_IL" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&family=Assistant:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "קורס נדל״ן · שווים יותר",
+    "description": "קורס נדל״ן לקהילת משרתי המילואים וכוחות הביטחון: סוגי עסקאות, מימון ומשכנתאות, שמאות ומיסוי ופרקטיקה מהשטח.",
+    "provider": { "@type": "Organization", "name": "שווים יותר" },
+    "offers": { "@type": "Offer", "price": "400", "priceCurrency": "ILS" },
+    "hasCourseInstance": { "@type": "CourseInstance", "courseMode": "Blended", "startDate": "2026-08-11" }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg:        #1a2410;
+      --bg-lift:   #26331a;
+      --olive:     #3c4f1e;
+      --gold:      #e8bd57;
+      --gold-soft: #f2d488;
+      --cream:     #f3f1e6;
+      --muted:     rgba(243,241,230,.62);
+      --line:      rgba(243,241,230,.15);
+      --line-2:    rgba(243,241,230,.28);
+      --maxw: 1320px;
+      --ease: cubic-bezier(.22,1,.36,1);
+    }
+
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+    body {
+      margin: 0; background: var(--bg); color: var(--cream);
+      font-family: "Assistant", "Segoe UI", "Arial Hebrew", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased; overflow-x: hidden; line-height: 1.5;
+      padding-bottom: 52px; /* room for the fixed marquee */
+    }
+    .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    a { color: inherit; text-decoration: none; }
+    ::selection { background: var(--gold); color: #241c00; }
+
+    .display { font-family: "Heebo", "Assistant", sans-serif; }
+    .wrap { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: 30px; }
+
+    .ph {
+      color: var(--gold); font-weight: 800;
+      border-bottom: 1.5px dashed rgba(232,189,87,.55); padding-bottom: 1px; white-space: nowrap;
+    }
+
+    /* ---------------- Top bar ---------------- */
+    .topbar {
+      position: fixed; inset: 0 0 auto 0; z-index: 40;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 30px;
+      transition: background .3s, padding .3s, box-shadow .3s;
+    }
+    .topbar.scrolled {
+      background: rgba(26,36,16,.88); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      padding-block: 11px; box-shadow: 0 1px 0 rgba(243,241,230,.12);
+    }
+    .brand { display: flex; align-items: center; }
+    .brand__name { font-family: "Heebo", sans-serif; font-weight: 900; font-size: 30px; letter-spacing: -.8px; color: var(--cream); line-height: 1; }
+    .brand__name b { color: var(--gold); }
+
+    .topbar__status {
+      display: flex; align-items: center; gap: 9px;
+      font-size: 13.5px; color: var(--muted);
+    }
+    .topbar__status .pulse {
+      width: 7px; height: 7px; border-radius: 50%; background: var(--gold);
+      box-shadow: 0 0 0 0 rgba(232,189,87,.5); animation: pulse 2.4s infinite;
+    }
+    @keyframes pulse { 0%{box-shadow:0 0 0 0 rgba(232,189,87,.45)} 70%{box-shadow:0 0 0 9px rgba(232,189,87,0)} 100%{box-shadow:0 0 0 0 rgba(232,189,87,0)} }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      font-family: "Assistant", sans-serif; font-weight: 700; cursor: pointer; border: 0;
+      transition: transform .5s var(--ease), background .25s, color .25s;
+    }
+    .btn-gold {
+      background: var(--gold); color: #241c00; font-size: 15.5px;
+      padding: 12px 24px; border-radius: 100px;
+    }
+    .btn-gold:hover { background: var(--gold-soft); }
+    .btn-lg { font-size: 17px; padding: 16px 34px; }
+    .btn-line {
+      background: transparent; color: var(--cream); font-weight: 600; font-size: 16px;
+      padding: 15px 6px; border-radius: 0; position: relative;
+    }
+    .btn-line::after {
+      content: ""; position: absolute; inset-inline: 6px; bottom: 8px; height: 1.5px;
+      background: var(--line-2); transition: background .25s;
+    }
+    .btn-line:hover::after { background: var(--gold); }
+
+    /* ---------------- Hero ---------------- */
+    .hero {
+      position: relative; min-height: 100svh; display: flex; flex-direction: column;
+      overflow: hidden;
+      background: radial-gradient(120% 85% at 84% 6%, var(--bg-lift) 0%, var(--bg) 60%);
+    }
+    .hero::after {
+      content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none; opacity: .45;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay;
+    }
+    .hero__mark {
+      position: absolute; z-index: 0; inset-block-end: -4%; inset-inline-start: -1%;
+      font-size: 32vw; line-height: .8; font-weight: 900; letter-spacing: -.03em;
+      color: transparent; -webkit-text-stroke: 1.5px rgba(232,189,87,.10);
+      pointer-events: none; user-select: none;
+    }
+    .hero__edge {
+      position: absolute; z-index: 4; inset-inline-start: 22px; inset-block-start: 50%;
+      transform: translateY(-50%) rotate(180deg); writing-mode: vertical-rl;
+      font-size: 12px; letter-spacing: 1px; color: var(--muted);
+    }
+
+    /* content fills the space evenly */
+    .hero__grid {
+      position: relative; z-index: 5; flex: 1;
+      display: flex; flex-direction: column; justify-content: center;
+      padding-block: 118px 40px;
+    }
+
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 14px; align-self: flex-start;
+      font-size: 14px; letter-spacing: .4px; color: var(--gold-soft); font-weight: 600;
+      margin-bottom: 24px;
+    }
+    .eyebrow::before { content: ""; width: 42px; height: 1.5px; background: var(--gold); }
+
+    .hero__title {
+      margin: 0; font-weight: 900; letter-spacing: -.02em;
+      font-size: clamp(46px, 8.4vw, 116px); line-height: .98;
+    }
+    .hero__title .line { display: block; overflow: hidden; padding-bottom: .05em; }
+    .hero__title .line > span { display: block; }
+    .hero__title .accent { color: var(--gold); }
+
+    .hero__sub {
+      margin: 28px 0 0; max-width: 44ch; font-size: clamp(17px, 1.9vw, 21px);
+      color: var(--muted); font-weight: 400; line-height: 1.6;
+    }
+
+    .hero__cta { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-top: 38px; }
+
+    .hero__foot {
+      position: relative; z-index: 5;
+      border-top: 1px solid var(--line);
+      display: flex; align-items: stretch; justify-content: space-between; flex-wrap: wrap;
+    }
+    .stats { display: flex; }
+    .stat { padding: 20px 32px 22px; border-inline-start: 1px solid var(--line); }
+    .stat:first-child { border-inline-start: 0; padding-inline-start: 0; }
+    .stat b { display: block; font-family: "Heebo", sans-serif; font-weight: 800; font-size: 27px; color: var(--cream); }
+    .stat span { font-size: 13px; color: var(--muted); }
+    .scroll-cue { display: flex; align-items: center; gap: 12px; padding: 20px 0 22px; font-size: 12.5px; letter-spacing: 1px; color: var(--muted); }
+    .scroll-cue .bar { position: relative; width: 1.5px; height: 38px; background: var(--line-2); overflow: hidden; }
+    .scroll-cue .bar::after { content:""; position:absolute; inset-inline:0; top:-40%; height:40%; background: var(--gold); animation: drop 2.2s var(--ease) infinite; }
+    @keyframes drop { 0%{top:-45%} 60%,100%{top:105%} }
+
+    .marquee {
+      position: fixed; inset-inline: 0; bottom: 0; z-index: 45;
+      overflow: hidden; white-space: nowrap;
+      background: rgba(21,29,12,.93); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      border-top: 1px solid var(--line);
+    }
+    .marquee__track { display: inline-flex; animation: marq 28s linear infinite; will-change: transform; }
+    .marquee__track span { font-family: "Heebo", sans-serif; font-size: 17px; font-weight: 700; color: var(--muted); padding: 14px 24px; }
+    .marquee__track span i { color: var(--gold); font-style: normal; margin-inline-start: 24px; }
+    @keyframes marq { to { transform: translateX(50%); } }
+
+    .mobile-cta { display: none; }
+
+    /* ---------------- Sections ---------------- */
+    .section { position: relative; padding-block: clamp(74px, 12vh, 130px); scroll-margin-top: 84px; }
+    .section__head { margin-bottom: 44px; }
+    .section__title { font-family: "Heebo", sans-serif; font-weight: 900; font-size: clamp(30px, 4.6vw, 58px); line-height: 1.07; letter-spacing: -.02em; margin: 14px 0 0; }
+    .section__title .accent { color: var(--gold); }
+    .section__lead { margin: 18px 0 0; max-width: 56ch; color: var(--muted); font-size: 18px; line-height: 1.6; }
+
+    /* syllabus accordion */
+    .syl { border-top: 1px solid var(--line); }
+    .syl details { border-bottom: 1px solid var(--line); }
+    .syl summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 18px; padding: 24px 6px; transition: background .2s; }
+    .syl summary::-webkit-details-marker { display: none; }
+    .syl summary:hover { background: rgba(243,241,230,.03); }
+    .syl__num { font-family: "Heebo", sans-serif; font-weight: 900; font-size: 19px; color: var(--gold); min-width: 42px; }
+    .syl__date { font-weight: 800; color: var(--cream); min-width: 50px; font-size: 15.5px; }
+    .syl__title { font-family: "Heebo", sans-serif; font-weight: 800; font-size: clamp(18px, 2.3vw, 25px); color: var(--cream); flex: 1; }
+    .syl__chev { color: var(--muted); transition: transform .3s var(--ease); flex: 0 0 auto; }
+    .syl details[open] .syl__chev { transform: rotate(180deg); }
+    .syl__body { padding-inline-start: 60px; padding-inline-end: 6px; padding-bottom: 28px; max-width: 74ch; }
+    .syl__badge { display: inline-block; font-size: 12px; font-weight: 700; padding: 5px 13px; border-radius: 100px; border: 1px solid var(--line-2); color: var(--gold-soft); margin-bottom: 14px; }
+    .syl__body p { margin: 0; color: var(--muted); font-size: 16.5px; line-height: 1.66; }
+    .syl__body .syl__who { margin-top: 14px; color: var(--gold-soft); font-size: 14.5px; font-weight: 600; }
+    .syl-note { margin-top: 28px; font-size: 14px; color: var(--muted); line-height: 1.6; }
+    .syl-note .ph { font-size: 14px; }
+
+    @media (max-width: 640px) {
+      .syl summary { gap: 12px; padding: 18px 4px; }
+      .syl__num { min-width: 28px; font-size: 16px; }
+      .syl__date { min-width: 42px; font-size: 14.5px; }
+      .syl__body { padding-inline-start: 28px; }
+    }
+
+    /* pricing / register */
+    .price-card {
+      display: grid; grid-template-columns: 1fr 1fr;
+      border: 1px solid rgba(232,189,87,.35); border-radius: 24px; overflow: hidden;
+      background: rgba(243,241,230,.03);
+    }
+    .price-card__main {
+      padding: 46px 42px; border-inline-end: 1px solid var(--line);
+      display: flex; flex-direction: column; align-items: flex-start;
+    }
+    .price-card__badge {
+      display: inline-block; background: rgba(232,189,87,.13); color: var(--gold-soft);
+      border: 1px solid rgba(232,189,87,.4); font-weight: 700; font-size: 14px;
+      padding: 7px 16px; border-radius: 100px; margin-bottom: 24px;
+    }
+    .price-card__amount {
+      font-family: "Heebo", sans-serif; font-weight: 900; line-height: 1;
+      font-size: clamp(62px, 9vw, 104px); color: var(--cream); letter-spacing: -.03em;
+    }
+    .price-card__amount .cur { color: var(--gold); font-size: .5em; vertical-align: super; margin-inline-end: 4px; }
+    .price-card__meta { color: var(--muted); margin: 16px 0 30px; font-size: 16px; }
+    .price-card .pay-form { align-self: stretch; width: 100%; margin: 0; }
+    .price-card .pay-submit { width: 100%; text-align: center; }
+    .price-card__secure { font-size: 13px; color: var(--muted); margin: 14px 0 0; align-self: center; }
+    .price-card__list { list-style: none; margin: 0; padding: 46px 42px; display: flex; flex-direction: column; gap: 17px; }
+    .price-card__list li { position: relative; padding-inline-start: 30px; color: var(--cream); font-size: 16.5px; }
+    .price-card__list li::before {
+      content: "✓"; position: absolute; inset-inline-start: 0; top: 0;
+      color: var(--gold); font-weight: 900;
+    }
+
+    @media (max-width: 760px) {
+      .price-card { grid-template-columns: 1fr; }
+      .price-card__main { border-inline-end: 0; border-bottom: 1px solid var(--line); padding: 34px 26px; align-items: center; text-align: center; }
+      .price-card__list { padding: 30px 26px; }
+    }
+
+
+    /* section backdrops — color play, brand shades only */
+    #audience { background: radial-gradient(85% 60% at 15% 0%, rgba(232,189,87,.06), transparent 60%); }
+    #gains { background: linear-gradient(180deg, #222e14, var(--bg)); border-block: 1px solid var(--line); }
+    #faq { background: linear-gradient(180deg, #222e14, var(--bg)); border-block: 1px solid var(--line); }
+    #gallery { background: radial-gradient(85% 60% at 85% 0%, rgba(232,189,87,.05), transparent 60%); }
+    #register { background: radial-gradient(75% 65% at 50% 22%, rgba(232,189,87,.10), transparent 65%); padding-block: clamp(48px, 8vh, 88px); }
+
+    /* who is it for */
+    .aud-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 16px; }
+    @media (max-width: 1080px) { .aud-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+    @media (max-width: 560px) { .aud-grid { grid-template-columns: 1fr; } }
+    .aud-card { border: 1px solid var(--line); border-radius: 18px; padding: 30px 26px; background: rgba(243,241,230,.02); transition: border-color .25s, background .25s; }
+    .aud-card:hover { border-color: var(--line-2); background: rgba(243,241,230,.045); }
+    .aud-card__n { font-family: "Heebo", sans-serif; font-weight: 900; font-size: 15px; color: var(--gold); }
+    .aud-card h3 { font-family: "Heebo", sans-serif; font-weight: 800; font-size: 20px; color: var(--cream); margin: 12px 0 8px; }
+    .aud-card p { margin: 0; color: var(--muted); font-size: 15.5px; line-height: 1.6; }
+
+    /* what you get */
+    .gains { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 0 44px; }
+    .gains li { position: relative; padding-inline-start: 46px; padding-block: 22px; color: var(--cream); font-size: 18px; line-height: 1.5; border-top: 1px solid var(--line); }
+    .gains li::before {
+      content: "✓"; position: absolute; inset-inline-start: 0; top: 19px;
+      width: 27px; height: 27px; line-height: 27px; text-align: center; border-radius: 50%;
+      background: rgba(232,189,87,.16); border: 1px solid rgba(232,189,87,.45);
+      color: var(--gold); font-weight: 900; font-size: 13px;
+    }
+    .gains b { color: var(--gold); font-weight: 800; }
+
+    /* whatsapp-style testimonials */
+    #testimonials { background: linear-gradient(180deg, #222e14, var(--bg)); border-block: 1px solid var(--line); }
+    .chat-screen {
+      max-width: 1120px; margin-inline: auto;
+      border-radius: 20px; overflow: hidden;
+      box-shadow: 0 30px 70px -30px rgba(0,0,0,.7), 0 0 0 1px rgba(243,241,230,.08);
+    }
+    .chat-bar {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 16px; background: #1f2c33; color: #e9edef;
+    }
+    .chat-bar__ava {
+      width: 42px; height: 42px; border-radius: 50%; flex: 0 0 auto;
+      background: var(--gold); color: #241c00; display: grid; place-items: center;
+      font-family: "Heebo", sans-serif; font-weight: 900; font-size: 17px;
+    }
+    .chat-bar__name { font-weight: 700; font-size: 16px; line-height: 1.2; }
+    .chat-bar__status { font-size: 12.5px; color: #8696a0; }
+    .chat-bar__spacer { flex: 1; }
+    .chat-bar__icons { display: flex; gap: 20px; color: #aebac1; }
+    .chat-body {
+      padding: 22px 16px 26px;
+      background-color: #d1c7bd;
+      background-image:
+        linear-gradient(rgba(216,208,197,.94), rgba(216,208,197,.94)),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Cg fill='none' stroke='%23555' stroke-opacity='.6' stroke-width='1.4'%3E%3Cpath d='M32 40l9-8 9 8v11H32z'/%3E%3Ccircle cx='120' cy='30' r='7'/%3E%3Cpath d='M110 70h20M120 60v20'/%3E%3Ccircle cx='210' cy='48' r='10'/%3E%3Cpath d='M250 30l6 6 11-12'/%3E%3Cpath d='M40 120c8-10 20-10 28 0'/%3E%3Crect x='150' y='110' width='22' height='16' rx='3'/%3E%3Cpath d='M255 120l5 10h-10z'/%3E%3Cpath d='M30 200a10 10 0 1 0 .1 0M70 205h16'/%3E%3Cpath d='M130 190l7 7 7-7 7 7'/%3E%3Ccircle cx='215' cy='198' r='6'/%3E%3Cpath d='M240 235q10-14 20 0'/%3E%3Cpath d='M45 260h20l-4 8H49z'/%3E%3Cpath d='M120 255l8-4v10z'/%3E%3Ccircle cx='205' cy='262' r='8'/%3E%3Cpath d='M95 150l5 5 5-5'/%3E%3Cpath d='M180 260h14'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 300px 300px;
+      columns: 3 300px; column-gap: 16px;
+    }
+    .bubble {
+      break-inside: avoid; margin: 0 0 14px; padding: 8px 10px 8px 12px;
+      position: relative; background: #fff; color: #111b21;
+      border-radius: 8px; border-start-end-radius: 0;
+      font-size: 15px; line-height: 1.45;
+      box-shadow: 0 1px 1px rgba(0,0,0,.14);
+      max-width: 100%;
+    }
+    .bubble::before {
+      content: ""; position: absolute; top: 0; inset-inline-end: -8px;
+      width: 0; height: 0; border-style: solid;
+      border-width: 0 0 9px 9px; border-color: transparent transparent transparent #fff;
+    }
+    .bubble p { margin: 0; padding-inline-end: 6px; }
+    .bubble p + p { margin-top: 6px; }
+    .bubble__meta { display: block; text-align: start; margin-top: 2px; font-size: 11px; color: #667781; }
+    .bubble__meta .tick { color: #53bdeb; font-size: 12px; letter-spacing: -3px; margin-inline-start: 3px; }
+
+    @media (max-width: 640px) {
+      .gains { grid-template-columns: 1fr; gap: 0; }
+      .chat-body { columns: 1; padding: 18px 12px 22px; }
+      .bubble { font-size: 14.5px; }
+    }
+
+    /* mentors */
+    #mentors { background: radial-gradient(85% 60% at 50% 0%, rgba(232,189,87,.05), transparent 60%); }
+    .mentor-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; }
+    .mentor-card {
+      border: 1px solid var(--line); border-radius: 18px; padding: 26px 24px;
+      background: rgba(243,241,230,.02); transition: border-color .25s, background .25s;
+    }
+    .mentor-card:hover { border-color: rgba(232,189,87,.4); background: rgba(243,241,230,.045); }
+    .mentor-card__badge {
+      display: inline-block; font-size: 12px; font-weight: 700; padding: 4px 12px;
+      border-radius: 100px; border: 1px solid rgba(232,189,87,.4); color: var(--gold-soft); margin-bottom: 18px;
+    }
+    .mentor-card__top { margin-bottom: 14px; }
+    .mentor-card h3 { margin: 0; font-family: "Heebo", sans-serif; font-weight: 800; font-size: 19px; color: var(--cream); }
+    .mentor-card__role { margin: 3px 0 0; color: var(--gold-soft); font-size: 13.5px; font-weight: 600; }
+    .mentor-card__bio { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.62; }
+    @media (max-width: 1020px) { .mentor-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+    @media (max-width: 620px) { .mentor-grid { grid-template-columns: 1fr; } }
+
+    /* gallery */
+    .gal { columns: 4 240px; column-gap: 14px; }
+    .gal figure { margin: 0 0 14px; break-inside: avoid; border-radius: 18px; overflow: hidden; border: 1px solid var(--line); }
+    .gal img { display: block; width: 100%; height: auto; transition: transform .9s var(--ease); }
+    .gal figure:hover img { transform: scale(1.05); }
+
+    /* faq */
+    .faq { border-top: 1px solid var(--line); }
+    .faq details { border-bottom: 1px solid var(--line); }
+    .faq summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 16px; padding: 22px 6px; transition: background .2s; }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary:hover { background: rgba(243,241,230,.03); }
+    .faq__q { font-family: "Heebo", sans-serif; font-weight: 800; font-size: clamp(17px, 2vw, 21px); color: var(--cream); flex: 1; }
+    .faq details[open] .syl__chev { transform: rotate(180deg); }
+    .faq__body { padding: 0 6px 26px; max-width: 70ch; }
+    .faq__body p { margin: 0; color: var(--muted); font-size: 16.5px; line-height: 1.66; }
+
+    /* footer */
+    .footer { border-top: 1px solid var(--line); margin-top: clamp(30px, 6vh, 60px); }
+    .footer__cta { text-align: center; padding-block: clamp(66px, 11vh, 120px); }
+    .footer__cta h2 { font-family: "Heebo", sans-serif; font-weight: 900; font-size: clamp(36px, 6vw, 72px); letter-spacing: -.02em; line-height: 1.04; margin: 0 0 30px; }
+    .footer__cta h2 .accent { color: var(--gold); }
+    .footer__grid { display: flex; justify-content: space-between; gap: 28px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-block: 36px; }
+    .footer__col { min-width: 200px; }
+    .footer__col h3 { font-family: "Heebo", sans-serif; font-weight: 800; font-size: 15px; color: var(--cream); margin: 0 0 12px; }
+    .footer__col p { margin: 0 0 8px; color: var(--muted); font-size: 15px; line-height: 1.6; }
+    .footer__col a { transition: color .2s; }
+    .footer__col a:hover { color: var(--gold); }
+    .footer__brand .brand__name { font-size: 26px; }
+    .footer__brand p { margin-top: 10px; }
+    .footer__base { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-block: 20px 28px; color: var(--muted); font-size: 13px; }
+
+    /* scroll reveal (JS adds .rv; without JS everything stays visible) */
+    body.js .rv { opacity: 0; transform: translateY(26px); transition: opacity .7s var(--ease), transform .7s var(--ease); transition-delay: var(--d, 0s); }
+    body.js .rv.in { opacity: 1; transform: none; }
+
+    @media (max-width: 640px) {
+      .gal { columns: 2 140px; column-gap: 10px; }
+      .gal figure { margin-bottom: 10px; border-radius: 12px; }
+      .footer__grid { flex-direction: column; gap: 22px; }
+    }
+
+    /* ---------------- Responsive ---------------- */
+    @media (max-width: 860px) {
+      .topbar { padding: 13px 18px; }
+      .topbar__status { display: none; }
+      .brand__name { font-size: 25px; }
+      .wrap { padding-inline: 20px; }
+      .hero { min-height: auto; }
+      .hero__edge { display: none; }
+      .hero__grid { flex: none; justify-content: flex-start; padding-block: 92px 34px; }
+      .hero__title { font-size: clamp(44px, 13.5vw, 86px); }
+      .hero__sub { margin-top: 22px; }
+      .hero__cta { margin-top: 30px; gap: 10px; }
+      .hero__foot { flex-direction: column; }
+      .stats { width: 100%; }
+      .stat { flex: 1; padding: 16px 12px; text-align: center; border-inline-start: 1px solid var(--line); }
+      .stat:first-child { border-inline-start: 0; padding-inline-start: 12px; }
+      .scroll-cue { display: none; }
+      .mobile-cta {
+        display: block; position: fixed; inset-inline: 0; bottom: 0; z-index: 60;
+        padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+        background: rgba(26,36,16,.9); backdrop-filter: blur(10px); border-top: 1px solid var(--line);
+      }
+      .mobile-cta .btn { width: 100%; padding: 15px; }
+      .marquee { bottom: calc(76px + env(safe-area-inset-bottom)); }
+      .marquee__track span { font-size: 14px; padding: 10px 18px; }
+      body { padding-bottom: 132px; }
+    }
+    @media (max-width: 480px) {
+      .hero__cta { flex-direction: column; align-items: stretch; }
+      .hero__cta .btn-gold { display: none; }
+      .btn-line { text-align: center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .marquee__track, .scroll-cue .bar::after, .topbar__status .pulse { animation: none !important; }
+      body.js .rv { opacity: 1 !important; transform: none !important; transition: none !important; }
+      .gal img, .gal figure:hover img { transition: none; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="שווים יותר">
+      <span class="brand__name">שווים יותר<b>.</b></span>
+    </a>
+
+    <div class="topbar__status"><span class="pulse"></span> המחזור מתחיל ב-11.8 · מספר המקומות מוגבל</div>
+
+    <a class="btn btn-gold" href="#register">להרשמה</a>
+  </header>
+
+  <!-- HERO -->
+  <main>
+    <section class="hero" id="top">
+      <span class="hero__mark display" aria-hidden="true">נדל״ן</span>
+      <span class="hero__edge">קורס נדל״ן · שווים יותר</span>
+
+      <div class="wrap hero__grid">
+        <p class="eyebrow">קהילת שווים יותר · קורס נדל״ן</p>
+
+        <h1 class="hero__title display">
+          <span class="line"><span>מהשטח</span></span>
+          <span class="line"><span class="accent">לשוק&nbsp;הנדל״ן.</span></span>
+        </h1>
+
+        <p class="hero__sub">
+          5 מפגשים שמלווים משרתי מילואים וכוחות הביטחון אל עולם הנדל״ן:
+          סוגי עסקאות, מימון ומשכנתאות, מיסוי ופרקטיקה מהשטח, בהנחיית מומחים.
+        </p>
+
+        <div class="hero__cta">
+          <a class="btn btn-gold btn-lg" id="magnetic" href="#register">להרשמה לקורס</a>
+          <a class="btn btn-line" href="#syllabus">לצפייה בסילבוס&nbsp;↓</a>
+        </div>
+      </div>
+
+      <div class="wrap hero__foot">
+        <div class="stats">
+          <div class="stat"><b data-count="5">5</b><span>מפגשים</span></div>
+          <div class="stat"><b data-count="11.8">11.8</b><span>מחזור נפתח</span></div>
+          <div class="stat"><b>היברידי</b><span>זום + פרונטלי</span></div>
+        </div>
+        <div class="scroll-cue"><span class="bar"></span> גללו למטה</div>
+      </div>
+
+    </section>
+
+    <!-- WHO IS IT FOR -->
+    <section class="section" id="audience">
+      <div class="wrap">
+        <div class="section__head">
+          <p class="eyebrow">למי זה מתאים</p>
+          <h2 class="section__title display">הקורס הזה נבנה <span class="accent">בשבילך.</span></h2>
+          <p class="section__lead">בין אם אתם לפני הדירה הראשונה או לקראת השקעה, הקורס לוקח אתכם מאפס ידע ועד ביטחון בשטח.</p>
+        </div>
+        <div class="aud-grid">
+          <div class="aud-card">
+            <span class="aud-card__n">01</span>
+            <h3>לפני הדירה הראשונה</h3>
+            <p>רוצים לקנות דירה אבל מרגישים אבודים מול המשכנתא, המיסוי והעסקה? כאן מתחילים בסדר הנכון.</p>
+          </div>
+          <div class="aud-card">
+            <span class="aud-card__n">02</span>
+            <h3>לקראת השקעה</h3>
+            <p>שוקלים השקעת נדל״ן ורוצים להבין את סוגי העסקאות, הסיכונים וההזדמנויות, לפני שנכנסים.</p>
+          </div>
+          <div class="aud-card">
+            <span class="aud-card__n">03</span>
+            <h3>אנשי שטח, ביטחון כלכלי</h3>
+            <p>משרתי מילואים וכוחות הביטחון שבונים את הצעד הכלכלי הבא שלהם, בקצב שלהם.</p>
+          </div>
+          <div class="aud-card">
+            <span class="aud-card__n">04</span>
+            <h3>רוצים כלים פרקטיים</h3>
+            <p>כבר בעניין, ורוצים לדבר את שפת המימון, המשא ומתן והמיסוי כמו מקצוענים.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT YOU GET -->
+    <section class="section" id="gains">
+      <div class="wrap">
+        <div class="section__head">
+          <p class="eyebrow">מה יוצאים איתו</p>
+          <h2 class="section__title display">בסוף הקורס, <span class="accent">תדעו לעשות את זה.</span></h2>
+        </div>
+        <ul class="gains">
+          <li>להבין את <b>סוגי עסקאות הנדל״ן</b> ולזהות הזדמנויות אמיתיות</li>
+          <li>לבנות <b>תמהיל משכנתא נכון</b> ולנהל משא ומתן על המימון</li>
+          <li>להכיר את <b>המסים בעסקה</b>: מס רכישה, מס שבח והיטל השבחה</li>
+          <li>לנתח <b>עסקה אמיתית</b> ולקבל החלטות בביטחון</li>
+          <li>להימנע מ<b>הטעויות היקרות</b> שעולות לרוכשים הכי הרבה כסף</li>
+          <li>להצטרף ל<b>רשת הקשרים</b> של קהילת שווים יותר</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SYLLABUS -->
+    <section class="section" id="syllabus">
+      <div class="wrap">
+        <div class="section__head">
+          <p class="eyebrow">הסילבוס · 5 מפגשים</p>
+          <h2 class="section__title display">מהיסודות של הנדל״ן<br>עד <span class="accent">עסקה אמיתית</span>.</h2>
+          <p class="section__lead">כל מפגש בהנחיית מומחה מהתחום: תיאוריה, כלים פרקטיים וניתוח עסקאות מהשוק, עד חלוקת תעודות בסיום. לחצו על כל מפגש לפרטים.</p>
+        </div>
+
+        <div class="syl">
+          <details>
+            <summary>
+              <span class="syl__num">01</span>
+              <span class="syl__date">11.8</span>
+              <span class="syl__title">מבוא לעולם הנדל״ן בישראל</span>
+              <svg class="syl__chev" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="syl__body">
+              <span class="syl__badge">מפגש פרונטלי · היכרות</span>
+              <p>נפתחים במפגש פנים אל פנים: מכירים את החברים לקורס ומקבלים תמונה ברורה של שוק הנדל״ן בישראל. מי השחקנים המרכזיים, מה קורה בשוק עכשיו, ואיפה נמצאות ההזדמנויות. הכל בגובה העיניים, בלי מילים גבוהות.</p>
+              <p class="syl__who">מרצים: עו״ד שמעון גניר · ארז רוזנבוך</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <span class="syl__num">02</span>
+              <span class="syl__date">18.8</span>
+              <span class="syl__title">סוגי עסקאות נדל״ן</span>
+              <svg class="syl__chev" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="syl__body">
+              <span class="syl__badge">הרצאת זום</span>
+              <p>עוברים אחת-אחת על הדרכים לקנות נדל״ן: דירה יד שנייה, דירה חדשה מקבלן, התחדשות עירונית, קרקעות וקבוצות רכישה. על כל אחת נבין מה היתרון, מה הסיכון, ולמי היא מתאימה.</p>
+              <p class="syl__who">מרצה: יהב שפינרד</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <span class="syl__num">03</span>
+              <span class="syl__date">25.8</span>
+              <span class="syl__title">מימון ומשכנתאות</span>
+              <svg class="syl__chev" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="syl__body">
+              <span class="syl__badge">הרצאת זום</span>
+              <p>כל מה שקשור לכסף: כמה הון עצמי באמת צריך, איך בונים משכנתא שמתאימה לכם, איך מתמקחים עם הבנק על הריבית, מה זה אישור עקרוני, ומהן הטעויות שעולות הכי הרבה כסף.</p>
+              <p class="syl__who">מרצה: ניצן מכני</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <span class="syl__num">04</span>
+              <span class="syl__date">1.9</span>
+              <span class="syl__title">שמאות ומיסוי מקרקעין</span>
+              <svg class="syl__chev" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="syl__body">
+              <span class="syl__badge">הרצאת זום</span>
+              <p>איך יודעים כמה נכס באמת שווה, ואילו מסים משלמים כשקונים וכשמוכרים: מס רכישה, מס שבח והיטל השבחה. כל מושג מוסבר במילים פשוטות, כדי שתיכנסו לעסקה בעיניים פקוחות.</p>
+              <p class="syl__who">מרצים: עומר ליבלינג · עו״ד שמעון גניר</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <span class="syl__num">05</span>
+              <span class="syl__date">8.9</span>
+              <span class="syl__title">פרקטיקה וניתוח מהשטח</span>
+              <svg class="syl__chev" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="syl__body">
+              <span class="syl__badge">מפגש סיכום · פרונטלי</span>
+              <p>סוגרים מעגל: מנתחים יחד עסקאות אמיתיות מהשוק, מתרגלים משא ומתן בסימולציות, עונים על כל השאלות שנשארו, ולסיום חוגגים עם חלוקת תעודות.</p>
+              <p class="syl__who">מרצה: דור נוימן</p>
+            </div>
+          </details>
+        </div>
+
+        <p class="syl-note">התאריכים: ימי שלישי · 11.8 · 18.8 · 25.8 · 1.9 · 8.9. הפורמט (זום/פרונטלי), השעות והמיקומים מבוססים על המחזור הקודם, <span class="ph">לאישור סופי למחזור זה</span>.</p>
+      </div>
+    </section>
+
+    <!-- MENTORS -->
+    <section class="section" id="mentors">
+      <div class="wrap">
+        <div class="section__head">
+          <p class="eyebrow">המרצים</p>
+          <h2 class="section__title display">לומדים מה<span class="accent">מומחים בתחום.</span></h2>
+          <p class="section__lead">בכל מפגש מרצה אחר, לפי התחום שלו: השקעות, שמאות, מימון ויזמות.</p>
+        </div>
+        <div class="mentor-grid">
+          <div class="mentor-card">
+            <span class="mentor-card__badge">מפגשים 1 ו-4</span>
+            <div class="mentor-card__top">
+              <div>
+                <h3>עו״ד שמעון גניר</h3>
+                <p class="mentor-card__role">עו״ד נדל״ן והתחדשות עירונית · גניר ושות׳</p>
+              </div>
+            </div>
+            <p class="mentor-card__bio">מתמחה בנדל״ן ובהתחדשות עירונית, ומלווה עסקאות רכישה ומכירה, רכישת דירה מקבלן, עסקאות יד שנייה ופרויקטים של התחדשות עירונית. שם דגש על ליווי משפטי ברור, מקצועי ובגובה העיניים, שמאפשר לרוכשים ומשקיעים לקבל החלטות בטוחות.</p>
+          </div>
+          <div class="mentor-card">
+            <span class="mentor-card__badge">מפגש 1 · מבוא לעולם הנדל״ן</span>
+            <div class="mentor-card__top">
+              <div>
+                <h3>ארז רוזנבוך</h3>
+                <p class="mentor-card__role">יו״ר דירקטוריון מגוריט ישראל</p>
+              </div>
+            </div>
+            <p class="mentor-card__bio">יו״ר מגוריט ישראל, מקרנות הריט הבולטות בישראל בתחום הדיור להשכרה ארוכת טווח, ועורך דין בעל ניסיון רב בשוק ההון וניירות ערך. מביא זווית רחבה על הקשר שבין נדל״ן, השקעות, שוק ההון ומגמות עומק בענף המגורים.</p>
+          </div>
+          <div class="mentor-card">
+            <span class="mentor-card__badge">מפגש 2 · סוגי עסקאות</span>
+            <div class="mentor-card__top">
+              <div>
+                <h3>יהב שפינרד</h3>
+                <p class="mentor-card__role">מייסד ומנכ״ל קפטן אינווסט</p>
+              </div>
+            </div>
+            <p class="mentor-card__bio">בעל תואר שני בנדל״ן ומקרקעין מהטכניון ומרצה בתחום הנדל״ן. מלווה רוכשים ומשקיעים בקבלת החלטות, בדגש על רכישת דירות נכונה, התחדשות עירונית והבנת השוק בצורה פרקטית. נבחר לרשימת הצעירים המבטיחים של מגזין מגדילים.</p>
+          </div>
+          <div class="mentor-card">
+            <span class="mentor-card__badge">מפגש 3 · מימון ומשכנתאות</span>
+            <div class="mentor-card__top">
+              <div>
+                <h3>ניצן מכני</h3>
+                <p class="mentor-card__role">בעלים ומנכ״ל ניצן מכני פיננסים</p>
+              </div>
+            </div>
+            <p class="mentor-card__bio">כלכלן ומומחה למשכנתאות מורכבות, אשראי, נדל״ן ופיננסים. מלווה משפחות, רוכשים ומשקיעים בתהליכי מימון, משכנתאות, מיחזור הלוואות ועסקאות נדל״ן.</p>
+          </div>
+          <div class="mentor-card">
+            <span class="mentor-card__badge">מפגש 4 · שמאות ומיסוי</span>
+            <div class="mentor-card__top">
+              <div>
+                <h3>עומר ליבלינג</h3>
+                <p class="mentor-card__role">שמאי מקרקעין מוסמך · מייסד שותף JLRE</p>
+              </div>
+            </div>
+            <p class="mentor-card__bio">מתמחה בהערכות שווי, שומות, התחדשות עירונית, היטל השבחה וליווי פרויקטים מורכבים. מביא את הזווית השמאית שכל רוכש ומשקיע חייב להכיר לפני קבלת החלטה.</p>
+          </div>
+          <div class="mentor-card">
+            <span class="mentor-card__badge">מפגש 5 · פרקטיקה מהשטח</span>
+            <div class="mentor-card__top">
+              <div>
+                <h3>דור נוימן</h3>
+                <p class="mentor-card__role">יזם נדל״ן · בעלים משותף, אחוזה</p>
+              </div>
+            </div>
+            <p class="mentor-card__bio">יזם נדל״ן ובעלים משותף בחברת אחוזה, שעוסקת בנדל״ן והשקעות באזור חיפה והצפון. מנגיש למשפחות ומשקיעים את עולם הנדל״ן בפשטות ובבהירות, בדגש על הבנת שוק הדיור, מגמות מחירים, בחירת עסקאות וקבלת החלטות חכמה.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="section" id="testimonials">
+      <div class="wrap">
+        <div class="section__head">
+          <p class="eyebrow">הודעות אמיתיות מהבוגרים</p>
+          <h2 class="section__title display">מה כותבים לנו <span class="accent">אחרי הקורס.</span></h2>
+        </div>
+        <div class="chat-screen">
+          <div class="chat-bar">
+            <span class="chat-bar__ava" aria-hidden="true">שי</span>
+            <div>
+              <div class="chat-bar__name">בוגרי קורס נדל״ן · שווים יותר</div>
+              <div class="chat-bar__status">‏18 חברים</div>
+            </div>
+            <span class="chat-bar__spacer"></span>
+            <span class="chat-bar__icons" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a9 9 0 0 0-9 9 9 9 0 0 0 1.2 4.5L3 21l4.7-1.2A9 9 0 1 0 12 3z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="12" cy="19" r="1.6"/></svg>
+            </span>
+          </div>
+          <div class="chat-body">
+            <div class="bubble"><p>היה מטורףף תודה לכם</p><span class="bubble__meta">20:14<span class="tick">✓✓</span></span></div>
+            <div class="bubble"><p>שמח כל כך שנרשמתי לזה. קיבלתי המון תמורה בכלום כסף. למדתי המון וזה מה שחיפשתי</p><span class="bubble__meta">20:16<span class="tick">✓✓</span></span></div>
+            <div class="bubble"><p>קורס מצויין סך הכל. מרצים שהייתי רוצה שיהיו גם חברים שלי</p><span class="bubble__meta">20:19<span class="tick">✓✓</span></span></div>
+            <div class="bubble"><p>היה מרתק והכי חשוב מאד ברור עם מרצה תותח</p><span class="bubble__meta">20:22<span class="tick">✓✓</span></span></div>
+            <div class="bubble"><p>יחסית לזמן ולמחיר התמורה מעולה ואין ספק שאמליץ לחברים. תודה רבה על העשיה והתרומה שלכם. ואתם גם אחלה של גברים אז בכלל שווה. הייתי נכנס איתכם לקרב בכיף, או לעסקה. מה שיבוא קודם 😘</p><span class="bubble__meta">20:25<span class="tick">✓✓</span></span></div>
+            <div class="bubble"><p>רואים שהייתה השקעה מטורפת גם מבחינת המרצים שהגיעו והתוכן שהועבר בסבלנות. מודה מאוד על ההשקעה, האוכל, סידור המקומות, כל פעם זום והקלטות. תודה רבה רבה ובעזרת השם נעשה הרבה השקעות נדלן!</p><span class="bubble__meta">20:31<span class="tick">✓✓</span></span></div>
+            <div class="bubble"><p>מעולה נתן לי פוש והבנה ראשונית על נדלן</p><span class="bubble__meta">20:33<span class="tick">✓✓</span></span></div>
+            <div class="bubble"><p>קורס מאוד מעמיק ושווה</p><span class="bubble__meta">20:35<span class="tick">✓✓</span></span></div>
+            <div class="bubble"><p>קורס מעולה מושקע פרקטי ומעניין</p><span class="bubble__meta">20:38<span class="tick">✓✓</span></span></div>
+            <div class="bubble"><p>תודה רבה על הכל היה מדהים ואני בטוח שעוד נישאר בקשר</p><span class="bubble__meta">20:41<span class="tick">✓✓</span></span></div>
+            <div class="bubble"><p>היה מאוד מלמד, מרגיש שיש לי הרבה יותר רקע והבנה במושגים</p><span class="bubble__meta">20:44<span class="tick">✓✓</span></span></div>
+            <div class="bubble"><p>היה קורס מאוד טוב ומעשיר שמח שלקחתי חלק. תודה לכם!</p><span class="bubble__meta">20:47<span class="tick">✓✓</span></span></div>
+            <div class="bubble"><p>היה ממש שווה וטוב אין מה להוסיף</p><span class="bubble__meta">20:50<span class="tick">✓✓</span></span></div>
+            <div class="bubble"><p>אחלה קורס מלמד</p><span class="bubble__meta">20:52<span class="tick">✓✓</span></span></div>
+            <div class="bubble"><p>תודה רבה חברה על הקורס... אתם עושים עבודת קודש. ב ה צ ל ח ה</p><span class="bubble__meta">20:55<span class="tick">✓✓</span></span></div>
+            <div class="bubble"><p>תודה רבה על הקורס. דברים חשובים שצריכים לדעת</p><span class="bubble__meta">20:58<span class="tick">✓✓</span></span></div>
+            <div class="bubble"><p>מעולה שמח שנרשמתי</p><span class="bubble__meta">21:02<span class="tick">✓✓</span></span></div>
+            <div class="bubble"><p>תודה רבה על כל מה שאתם עושים</p><span class="bubble__meta">21:05<span class="tick">✓✓</span></span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="section" id="gallery">
+      <div class="wrap">
+        <div class="section__head">
+          <p class="eyebrow">רגעים מהקורס</p>
+          <h2 class="section__title display">ככה זה נראה <span class="accent">מבפנים.</span></h2>
+        </div>
+        <div class="gal">
+          <figure><img src="assets/g1.webp" width="1000" height="1333" alt="מרצה מול משתתפי הקורס באולם ההרצאות" loading="lazy" decoding="async"></figure>
+          <figure><img src="assets/g6.webp" width="1000" height="562" alt="משתתפי הקורס במפגש פרונטלי מלא" loading="lazy" decoding="async"></figure>
+          <figure><img src="assets/g2.webp" width="1000" height="1333" alt="אולם מלא במשתתפי קורס הנדל״ן" loading="lazy" decoding="async"></figure>
+          <figure><img src="assets/g4.webp" width="1000" height="1333" alt="הרצאה עם מצגת של שווים יותר על המסך" loading="lazy" decoding="async"></figure>
+          <figure><img src="assets/g8.webp" width="1000" height="750" alt="מצגת הפתיחה של שווים יותר במפגש הקורס" loading="lazy" decoding="async"></figure>
+          <figure><img src="assets/g5.webp" width="1000" height="1333" alt="מרצה מציג בפני הקהל במפגש פרונטלי" loading="lazy" decoding="async"></figure>
+          <figure><img src="assets/g3.webp" width="1000" height="1333" alt="משתתפים בשיחת נטוורקינג בהפסקה" loading="lazy" decoding="async"></figure>
+          <figure><img src="assets/g7.webp" width="1000" height="1333" alt="מבט מאחור על הרצאה מלאה במשתתפים" loading="lazy" decoding="async"></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING / REGISTER -->
+    <section class="section" id="register">
+      <div class="wrap">
+        <h2 class="sr-only">הרשמה ותשלום</h2>
+        <div class="price-card">
+          <div class="price-card__main">
+            <span class="price-card__badge">מחיר מיוחד לחברי הקהילה</span>
+            <div class="price-card__amount"><span class="cur">₪</span>400</div>
+            <p class="price-card__meta">לכל הקורס · 5 מפגשים · נפתחים ב-11.8</p>
+            <!-- טופס תשלום UPAY. amount=1 = מצב בדיקה — להחזיר ל-400 אחרי בדיקה חיה מוצלחת. -->
+            <form class="pay-form" name="upayform" action="https://app.upay.co.il/API6/clientsecure/redirectpage.php" method="post">
+              <input type="hidden" name="email" value="SHAVIMYOTER2024@GMAIL.COM">
+              <input type="hidden" name="amount" value="1"><!-- בדיקה ₪1 — להחזיר ל-400 לפני עלייה לאוויר -->
+              <input type="hidden" name="returnurl" value="https://shavimyoter2024-a11y.github.io/nadlan/toda.html">
+              <input type="hidden" name="ipnurl" value="">
+              <input type="hidden" name="paymentdetails" value="קורס נדל״ן שווים יותר">
+              <input type="hidden" name="maxpayments" value="1">
+              <input type="hidden" name="livesystem" value="1">
+              <input type="hidden" name="commissionreduction" value="">
+              <input type="hidden" name="createinvoiceandreceipt" value="1">
+              <input type="hidden" name="createinvoice" value="0">
+              <input type="hidden" name="createreceipt" value="0">
+              <input type="hidden" name="refername" value="UPAY" id="upay-refername">
+              <input type="hidden" name="lang" value="HE">
+              <input type="hidden" name="currency" value="NIS">
+              <button type="submit" class="btn btn-gold btn-lg pay-submit">להרשמה ותשלום מאובטח&nbsp;←</button>
+            </form>
+            <p class="price-card__secure">תשלום מאובטח באמצעות UPAY</p>
+          </div>
+          <ul class="price-card__list">
+            <li>5 מפגשים בהנחיית מומחים מהתחום</li>
+            <li>הקלטות של כל המפגשים לצפייה חוזרת</li>
+            <li>מפגשים פרונטליים כולל כיבוד</li>
+            <li>מענה אישי לשאלות מהמרצים</li>
+            <li>תעודה חגיגית בסיום הקורס</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq">
+      <div class="wrap">
+        <div class="section__head">
+          <p class="eyebrow">שאלות נפוצות</p>
+          <h2 class="section__title display">כל מה שחשוב <span class="accent">לדעת.</span></h2>
+        </div>
+        <div class="faq">
+          <details>
+            <summary>
+              <span class="faq__q">אין לי שום רקע בנדל״ן, הקורס מתאים לי?</span>
+              <svg class="syl__chev" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="faq__body"><p>כן. המפגש הראשון מתחיל מהיסודות: היכרות עם השוק, השחקנים והכללים. משם מתקדמים שלב אחרי שלב, עד ניתוח עסקאות אמיתיות במפגש הסיום.</p></div>
+          </details>
+          <details>
+            <summary>
+              <span class="faq__q">איפה ואיך מתקיימים המפגשים?</span>
+              <svg class="syl__chev" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="faq__body"><p>הפורמט משולב: חלק מהמפגשים פנים אל פנים וחלק בזום. הפרטים המדויקים לכל מפגש (מיקום ושעה) נשלחים לנרשמים מראש.</p></div>
+          </details>
+          <details>
+            <summary>
+              <span class="faq__q">מה קורה אם אני מפספס מפגש?</span>
+              <svg class="syl__chev" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="faq__body"><p>כל המפגשים מוקלטים, וההקלטות זמינות לנרשמים לצפייה חוזרת. משלימים בזמן שנוח לכם.</p></div>
+          </details>
+          <details>
+            <summary>
+              <span class="faq__q">כמה עולה הקורס ומה כלול במחיר?</span>
+              <svg class="syl__chev" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="faq__body"><p>₪400 לחברי הקהילה, לכל הקורס: 5 מפגשים בהנחיית מומחים, הקלטות של כל המפגשים, כיבוד במפגשים הפרונטליים, מענה מהמרצים ותעודה בסיום. משלמים כאן בדף, בתשלום מאובטח (UPAY).</p></div>
+          </details>
+          <details>
+            <summary>
+              <span class="faq__q">מי המרצים?</span>
+              <svg class="syl__chev" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="faq__body"><p>צוות מומחים, כל אחד בתחומו: עו״ד שמעון גניר, ארז רוזנבוך, יהב שפינרד, ניצן מכני, עומר ליבלינג ודור נוימן. הפירוט המלא על כל מרצה נמצא באזור "המרצים" כאן בדף.</p></div>
+          </details>
+          <details>
+            <summary>
+              <span class="faq__q">מקבלים תעודה בסיום?</span>
+              <svg class="syl__chev" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="faq__body"><p>כן. במפגש האחרון נערכת חלוקת תעודות חגיגית לבוגרי הקורס.</p></div>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer__cta">
+        <h2 class="display">מוכנים לעשות<br>את <span class="accent">הצעד הבא?</span></h2>
+        <a class="btn btn-gold btn-lg" href="#register">להרשמה לקורס</a>
+      </div>
+      <div class="footer__grid">
+        <div class="footer__col footer__brand">
+          <span class="brand__name">שווים יותר<b>.</b></span>
+          <p>הקהילה של משרתי המילואים וכוחות הביטחון.</p>
+        </div>
+        <div class="footer__col">
+          <h3>דברו איתנו</h3>
+          <p><a href="https://wa.me/972587929195" target="_blank" rel="noopener">וואטסאפ: 058-792-9195</a></p>
+          <p><a href="mailto:shavimyoter2024@gmail.com">shavimyoter2024@gmail.com</a></p>
+        </div>
+      </div>
+      <div class="footer__base">
+        <span>© 2026 שווים יותר · כל הזכויות שמורות</span>
+        <span>קורס נדל״ן · ההרשמה למחזור 11.8 פתוחה</span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <span>סוגי עסקאות<i>◆</i></span><span>מימון ומשכנתאות<i>◆</i></span><span>מיסוי מקרקעין<i>◆</i></span><span>התחדשות עירונית<i>◆</i></span><span>פרקטיקה מהשטח<i>◆</i></span>
+      <span>סוגי עסקאות<i>◆</i></span><span>מימון ומשכנתאות<i>◆</i></span><span>מיסוי מקרקעין<i>◆</i></span><span>התחדשות עירונית<i>◆</i></span><span>פרקטיקה מהשטח<i>◆</i></span>
+    </div>
+  </div>
+
+  <div class="mobile-cta"><a class="btn btn-gold" href="#register">להרשמה לקורס</a></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script>
+    (function () {
+      document.body.classList.add("js");
+      var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (window.gsap && !reduce) {
+        var tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+        tl.from(".hero .eyebrow", { y: 18, opacity: 0, duration: .7 })
+          .from(".hero__title .line > span", { yPercent: 110, duration: 1, stagger: .12 }, "-=.35")
+          .from(".hero__sub", { y: 22, opacity: 0, duration: .8 }, "-=.6")
+          .from(".hero__cta > *", { y: 20, opacity: 0, duration: .7, stagger: .1 }, "-=.55")
+          .from(".hero__foot .stat, .scroll-cue", { y: 24, opacity: 0, duration: .7, stagger: .08 }, "-=.5")
+          .from(".hero__mark", { opacity: 0, duration: 1.4 }, 0);
+
+        // count-up on the hero stats
+        document.querySelectorAll(".stat b[data-count]").forEach(function (el) {
+          var raw = el.getAttribute("data-count");
+          var target = parseFloat(raw);
+          var dec = raw.indexOf(".") > -1 ? 1 : 0;
+          var o = { v: 0 };
+          tl.to(o, {
+            v: target, duration: 1.2, ease: "power2.out",
+            onUpdate: function () { el.textContent = o.v.toFixed(dec); }
+          }, "-=.9");
+        });
+      }
+
+      // solid topbar once the page is scrolled
+      var topbar = document.querySelector(".topbar");
+      var onScroll = function () { topbar.classList.toggle("scrolled", window.pageYOffset > 40); };
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+
+      // scroll reveals for the sections below the hero
+      var rvTargets = document.querySelectorAll(
+        ".section .section__head, .aud-card, .gains li, .syl details, .mentor-card, .chat-screen, .gal figure, .price-card, .faq details, .footer__cta"
+      );
+      rvTargets.forEach(function (el) {
+        el.classList.add("rv");
+        var i = 0, s = el;
+        while ((s = s.previousElementSibling)) { if (s.classList.contains("rv")) i++; }
+        el.style.setProperty("--d", Math.min(i * 0.07, 0.42) + "s");
+      });
+      if ("IntersectionObserver" in window && !reduce) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) {
+            if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
+          });
+        }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+        rvTargets.forEach(function (el) { io.observe(el); });
+      } else {
+        rvTargets.forEach(function (el) { el.classList.add("in"); });
+      }
+      var mag = document.getElementById("magnetic");
+      if (mag && window.matchMedia("(pointer:fine)").matches && !reduce) {
+        mag.addEventListener("mousemove", function (e) {
+          var r = mag.getBoundingClientRect();
+          mag.style.transform = "translate(" + (e.clientX - r.left - r.width/2)*.28 + "px," + (e.clientY - r.top - r.height/2)*.32 + "px)";
+        });
+        mag.addEventListener("mouseleave", function () { mag.style.transform = "translate(0,0)"; });
+      }
+
+      // pass the distributor (utm_source) into UPAY's refername field, so every
+      // purchase is credited to the right מפיץ inside UPAY's own reports.
+      try {
+        var src = new URLSearchParams(window.location.search).get("utm_source");
+        var ref = document.getElementById("upay-refername");
+        if (ref && src) ref.value = src.slice(0, 60);
+      } catch (e) {}
+    })();
+  </script>
+</body>
+</html>

@@ -812,7 +812,8 @@
               <input type="hidden" name="amount" value="1"><!-- בדיקה ₪1 — להחזיר ל-400 לפני עלייה לאוויר -->
               <input type="hidden" name="returnurl" value="https://shavimyoter2024-a11y.github.io/nadlan/pay-return.html">
               <input type="hidden" name="ipnurl" value="">
-              <input type="hidden" name="paymentdetails" value="קורס נדל״ן שווים יותר" id="upay-paymentdetails">
+              <input type="hidden" name="paymentdetails" value="קורס נדל״ן שווים יותר">
+              <input type="hidden" name="comment" value="" id="upay-comment">
               <input type="hidden" name="maxpayments" value="1">
               <input type="hidden" name="livesystem" value="1">
               <input type="hidden" name="commissionreduction" value="">
@@ -1013,13 +1014,14 @@
         mag.addEventListener("mouseleave", function () { mag.style.transform = "translate(0,0)"; });
       }
 
-      // pass the distributor (utm_source) into UPAY's paymentdetails field, so every
-      // purchase shows the מפיץ name in UPAY's transaction report.
+      // pass the distributor (utm_source) into UPAY's "comment" field — an internal
+      // note saved on the transaction in UPAY's reports, NOT shown to the buyer on
+      // the checkout page (unlike paymentdetails).
       // (refername must stay "UPAY" — any other value is rejected: "wronginput refername")
       try {
         var src = new URLSearchParams(window.location.search).get("utm_source");
-        var pd = document.getElementById("upay-paymentdetails");
-        if (pd && src) pd.value = pd.value + " - מפיץ " + src.slice(0, 40);
+        var cm = document.getElementById("upay-comment");
+        if (cm && src) cm.value = "מפיץ: " + src.slice(0, 40);
       } catch (e) {}
 
       // embedded UPAY checkout: desktop pays inside a branded iframe; touch devices

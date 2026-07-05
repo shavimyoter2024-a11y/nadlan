@@ -241,8 +241,18 @@
     }
     .price-card__amount .cur { color: var(--gold); font-size: .5em; vertical-align: super; margin-inline-end: 4px; }
     .price-card__meta { color: var(--muted); margin: 16px 0 30px; font-size: 16px; }
-    .price-card .pay-form { align-self: stretch; width: 100%; margin: 0; }
+    .price-card .pay-form { align-self: stretch; width: 100%; margin: 0; display: flex; flex-direction: column; align-items: center; }
     .price-card .pay-submit { width: 100%; text-align: center; }
+    .pay-fallback { margin-top: 12px; background: transparent; color: var(--muted); font-family: inherit; font-size: 13.5px; border: 0; cursor: pointer; text-decoration: underline; }
+    .pay-fallback:hover { color: var(--gold-soft); }
+
+    /* embedded UPAY checkout window */
+    .pay-window { margin-top: 24px; border: 1px solid rgba(232,189,87,.45); border-radius: 20px; overflow: hidden; box-shadow: 0 30px 70px -30px rgba(0,0,0,.7); }
+    .pay-window__head { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 13px 16px; background: var(--bg-lift); color: var(--gold-soft); font-weight: 700; font-size: 14.5px; border-bottom: 1px solid rgba(232,189,87,.35); }
+    .pay-window__body { position: relative; background: #fff; }
+    .pay-window__loader { position: absolute; inset: 0; display: grid; place-items: center; color: #555; font-size: 15px; background: #fff; }
+    .pay-window iframe { display: block; width: 100%; height: 780px; border: 0; background: #fff; }
+    @media (max-width: 640px) { .pay-window iframe { height: 720px; } }
     .price-card__secure { font-size: 13px; color: var(--muted); margin: 14px 0 0; align-self: center; }
     .price-card__list { list-style: none; margin: 0; padding: 46px 42px; display: flex; flex-direction: column; gap: 17px; }
     .price-card__list li { position: relative; padding-inline-start: 30px; color: var(--cream); font-size: 16.5px; }
@@ -772,10 +782,10 @@
             <div class="price-card__amount"><span class="cur">₪</span>400</div>
             <p class="price-card__meta">לכל הקורס · 5 מפגשים · נפתחים ב-11.8</p>
             <!-- טופס תשלום UPAY. amount=1 = מצב בדיקה — להחזיר ל-400 אחרי בדיקה חיה מוצלחת. -->
-            <form class="pay-form" name="upayform" action="https://app.upay.co.il/API6/clientsecure/redirectpage.php" method="post">
+            <form class="pay-form" name="upayform" action="https://app.upay.co.il/API6/clientsecure/redirectpage.php" method="post" target="upayIframe">
               <input type="hidden" name="email" value="SHAVIMYOTER2024@GMAIL.COM">
               <input type="hidden" name="amount" value="1"><!-- בדיקה ₪1 — להחזיר ל-400 לפני עלייה לאוויר -->
-              <input type="hidden" name="returnurl" value="https://shavimyoter2024-a11y.github.io/nadlan/toda.html">
+              <input type="hidden" name="returnurl" value="https://shavimyoter2024-a11y.github.io/nadlan/pay-return.html">
               <input type="hidden" name="ipnurl" value="">
               <input type="hidden" name="paymentdetails" value="קורס נדל״ן שווים יותר">
               <input type="hidden" name="maxpayments" value="1">
@@ -788,6 +798,7 @@
               <input type="hidden" name="lang" value="HE">
               <input type="hidden" name="currency" value="NIS">
               <button type="submit" class="btn btn-gold btn-lg pay-submit">להרשמה ותשלום מאובטח&nbsp;←</button>
+              <button type="submit" formtarget="_blank" class="pay-fallback">לא נטען? לתשלום בחלון נפרד</button>
             </form>
             <p class="price-card__secure">תשלום מאובטח באמצעות UPAY</p>
           </div>
@@ -798,6 +809,15 @@
             <li>מענה אישי לשאלות מהמרצים</li>
             <li>תעודה חגיגית בסיום הקורס</li>
           </ul>
+        </div>
+
+        <!-- חלון תשלום מוטמע — נטען לתוך ה-iframe בלחיצה על הכפתור -->
+        <div class="pay-window" id="payWindow" hidden>
+          <div class="pay-window__head">🔒 תשלום מאובטח דרך UPAY</div>
+          <div class="pay-window__body">
+            <div class="pay-window__loader" id="payLoader">טוען טופס תשלום מאובטח…</div>
+            <iframe name="upayIframe" id="upayIframe" title="טופס תשלום מאובטח של UPAY"></iframe>
+          </div>
         </div>
       </div>
     </section>
@@ -960,6 +980,23 @@
         var ref = document.getElementById("upay-refername");
         if (ref && src) ref.value = src.slice(0, 60);
       } catch (e) {}
+
+      // embedded UPAY checkout: reveal the iframe window when the pay form submits
+      var payForm = document.querySelector(".pay-form");
+      var payWindow = document.getElementById("payWindow");
+      var payIframe = document.getElementById("upayIframe");
+      var payLoader = document.getElementById("payLoader");
+      if (payForm && payWindow) {
+        payForm.addEventListener("submit", function (e) {
+          if (e.submitter && e.submitter.classList.contains("pay-fallback")) return; // "new tab" fallback
+          payWindow.hidden = false;
+          if (payLoader) payLoader.style.display = "";
+          setTimeout(function () { payWindow.scrollIntoView({ behavior: "smooth", block: "start" }); }, 60);
+        });
+      }
+      if (payIframe && payLoader) {
+        payIframe.addEventListener("load", function () { payLoader.style.display = "none"; });
+      }
     })();
   </script>
 </body>

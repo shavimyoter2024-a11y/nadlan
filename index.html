@@ -1024,15 +1024,15 @@
         if (cm && src) cm.value = "מפיץ: " + src.slice(0, 40);
       } catch (e) {}
 
-      // embedded UPAY checkout: desktop pays inside a branded iframe; touch devices
-      // go full-page so Bit can open its app (deep links are blocked inside iframes).
+      // embedded UPAY checkout: all devices pay inside the branded in-page iframe.
+      // (the earlier "Bit broken on phone" was the refername rejection killing the
+      // whole checkout page — fixed. If Bit still fails inside the iframe, the
+      // "בחלון נפרד" fallback button opens a full tab.)
       var payForm = document.querySelector(".pay-form");
       var payWindow = document.getElementById("payWindow");
       var payIframe = document.getElementById("upayIframe");
       var payLoader = document.getElementById("payLoader");
-      var touchDevice = window.matchMedia("(pointer: coarse)").matches;
-      if (payForm && touchDevice) payForm.setAttribute("target", "_top");
-      if (payForm && payWindow && !touchDevice) {
+      if (payForm && payWindow) {
         payForm.addEventListener("submit", function (e) {
           if (e.submitter && e.submitter.classList.contains("pay-fallback")) return; // "new tab" fallback
           payWindow.hidden = false;

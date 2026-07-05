@@ -812,14 +812,14 @@
               <input type="hidden" name="amount" value="1"><!-- בדיקה ₪1 — להחזיר ל-400 לפני עלייה לאוויר -->
               <input type="hidden" name="returnurl" value="https://shavimyoter2024-a11y.github.io/nadlan/pay-return.html">
               <input type="hidden" name="ipnurl" value="">
-              <input type="hidden" name="paymentdetails" value="קורס נדל״ן שווים יותר">
+              <input type="hidden" name="paymentdetails" value="קורס נדל״ן שווים יותר" id="upay-paymentdetails">
               <input type="hidden" name="maxpayments" value="1">
               <input type="hidden" name="livesystem" value="1">
               <input type="hidden" name="commissionreduction" value="">
               <input type="hidden" name="createinvoiceandreceipt" value="1">
               <input type="hidden" name="createinvoice" value="0">
               <input type="hidden" name="createreceipt" value="0">
-              <input type="hidden" name="refername" value="UPAY" id="upay-refername">
+              <input type="hidden" name="refername" value="UPAY">
               <input type="hidden" name="lang" value="HE">
               <input type="hidden" name="currency" value="NIS">
               <button type="submit" class="btn btn-gold btn-lg pay-submit">להרשמה ותשלום מאובטח&nbsp;←</button>
@@ -1013,12 +1013,13 @@
         mag.addEventListener("mouseleave", function () { mag.style.transform = "translate(0,0)"; });
       }
 
-      // pass the distributor (utm_source) into UPAY's refername field, so every
-      // purchase is credited to the right מפיץ inside UPAY's own reports.
+      // pass the distributor (utm_source) into UPAY's paymentdetails field, so every
+      // purchase shows the מפיץ name in UPAY's transaction report.
+      // (refername must stay "UPAY" — any other value is rejected: "wronginput refername")
       try {
         var src = new URLSearchParams(window.location.search).get("utm_source");
-        var ref = document.getElementById("upay-refername");
-        if (ref && src) ref.value = src.slice(0, 60);
+        var pd = document.getElementById("upay-paymentdetails");
+        if (pd && src) pd.value = pd.value + " - מפיץ " + src.slice(0, 40);
       } catch (e) {}
 
       // embedded UPAY checkout: desktop pays inside a branded iframe; touch devices

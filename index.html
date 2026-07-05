@@ -981,12 +981,15 @@
         if (ref && src) ref.value = src.slice(0, 60);
       } catch (e) {}
 
-      // embedded UPAY checkout: reveal the iframe window when the pay form submits
+      // embedded UPAY checkout: desktop pays inside a branded iframe; touch devices
+      // go full-page so Bit can open its app (deep links are blocked inside iframes).
       var payForm = document.querySelector(".pay-form");
       var payWindow = document.getElementById("payWindow");
       var payIframe = document.getElementById("upayIframe");
       var payLoader = document.getElementById("payLoader");
-      if (payForm && payWindow) {
+      var touchDevice = window.matchMedia("(pointer: coarse)").matches;
+      if (payForm && touchDevice) payForm.setAttribute("target", "_top");
+      if (payForm && payWindow && !touchDevice) {
         payForm.addEventListener("submit", function (e) {
           if (e.submitter && e.submitter.classList.contains("pay-fallback")) return; // "new tab" fallback
           payWindow.hidden = false;

@@ -247,6 +247,10 @@
     .price-card .pay-submit { width: 100%; text-align: center; }
     .pay-fallback { margin-top: 12px; background: transparent; color: var(--muted); font-family: inherit; font-size: 13.5px; border: 0; cursor: pointer; text-decoration: underline; }
     .pay-fallback:hover { color: var(--gold-soft); }
+    /* Bit needs a full-page checkout (its app can't open from inside an iframe),
+       so touch devices get a second, clearly-labelled button. */
+    .price-card .pay-bit { width: 100%; text-align: center; margin-top: 10px; background: transparent; color: var(--cream); border: 1.5px solid rgba(232,189,87,.55); }
+    .price-card .pay-bit:not([hidden]) { display: inline-flex; }
 
     /* embedded UPAY checkout window */
     .pay-window { margin-top: 24px; border: 1px solid rgba(232,189,87,.45); border-radius: 20px; overflow: hidden; box-shadow: 0 30px 70px -30px rgba(0,0,0,.7); }
@@ -824,6 +828,7 @@
               <input type="hidden" name="lang" value="HE">
               <input type="hidden" name="currency" value="NIS">
               <button type="submit" class="btn btn-gold btn-lg pay-submit">להרשמה ותשלום מאובטח&nbsp;←</button>
+              <button type="submit" formtarget="_top" class="btn btn-lg pay-bit" hidden>לתשלום בביט 📱</button>
               <button type="submit" formtarget="_blank" class="pay-fallback">לא נטען? לתשלום בחלון נפרד</button>
             </form>
             <p class="price-card__secure">תשלום מאובטח באמצעות UPAY</p>
@@ -1024,17 +1029,21 @@
         if (cm && src) cm.value = "מפיץ: " + src.slice(0, 40);
       } catch (e) {}
 
-      // embedded UPAY checkout: all devices pay inside the branded in-page iframe.
-      // (the earlier "Bit broken on phone" was the refername rejection killing the
-      // whole checkout page — fixed. If Bit still fails inside the iframe, the
-      // "בחלון נפרד" fallback button opens a full tab.)
+      // embedded UPAY checkout: card payments stay inside the branded in-page iframe
+      // on every device. Bit can't open its app from inside an iframe (white page),
+      // so touch devices get an extra "לתשלום בביט" button that goes full-page
+      // (formtarget=_top); after payment UPAY returns it to our thank-you page.
       var payForm = document.querySelector(".pay-form");
       var payWindow = document.getElementById("payWindow");
       var payIframe = document.getElementById("upayIframe");
       var payLoader = document.getElementById("payLoader");
+      var payBit = document.querySelector(".pay-bit");
+      var touchDevice = window.matchMedia("(pointer: coarse)").matches;
+      if (payBit && touchDevice) payBit.hidden = false;
       if (payForm && payWindow) {
         payForm.addEventListener("submit", function (e) {
-          if (e.submitter && e.submitter.classList.contains("pay-fallback")) return; // "new tab" fallback
+          // fallback tab + Bit full-page leave the page; only the embedded flow reveals the iframe
+          if (e.submitter && (e.submitter.classList.contains("pay-fallback") || e.submitter.classList.contains("pay-bit"))) return;
           payWindow.hidden = false;
           if (payLoader) payLoader.style.display = "";
           setTimeout(function () { payWindow.scrollIntoView({ behavior: "smooth", block: "start" }); }, 60);

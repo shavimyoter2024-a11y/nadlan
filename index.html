@@ -281,6 +281,22 @@
     #gallery { background: radial-gradient(85% 60% at 85% 0%, rgba(232,189,87,.05), transparent 60%); }
     #register { background: radial-gradient(75% 65% at 50% 22%, rgba(232,189,87,.10), transparent 65%); padding-block: clamp(48px, 8vh, 88px); }
 
+    /* warm-lead mini form */
+    .lead-box { margin-top: 34px; padding: 26px 22px 24px; border: 1px solid rgba(232,189,87,.22); border-radius: 16px; background: rgba(243,241,230,.03); text-align: center; }
+    .lead-box__title { margin: 0 0 4px; font-weight: 800; font-size: clamp(19px, 2.6vw, 24px); }
+    .lead-box__title .accent { color: var(--gold); }
+    .lead-box__sub { margin: 0 0 18px; color: var(--muted); font-size: 15px; }
+    .lead-form { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .lead-form input {
+      flex: 1 1 180px; max-width: 240px; padding: 13px 16px; border-radius: 100px;
+      border: 1px solid rgba(243,241,230,.22); background: rgba(243,241,230,.06);
+      color: var(--cream); font: inherit; font-size: 15px;
+    }
+    .lead-form input::placeholder { color: rgba(243,241,230,.45); }
+    .lead-form input:focus { outline: none; border-color: var(--gold); }
+    .lead-form .btn { flex: 0 0 auto; }
+    .lead-form__msg { margin: 12px 0 0; min-height: 1.4em; color: var(--gold-soft); font-size: 14.5px; }
+
     /* who is it for */
     .aud-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 16px; }
     @media (max-width: 1080px) { .aud-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
@@ -817,7 +833,6 @@
               <input type="hidden" name="returnurl" value="https://shavimyoter2024-a11y.github.io/nadlan/pay-return.html">
               <input type="hidden" name="ipnurl" value="">
               <input type="hidden" name="paymentdetails" value="קורס נדל״ן שווים יותר">
-              <input type="hidden" name="comment" value="" id="upay-comment">
               <input type="hidden" name="maxpayments" value="1">
               <input type="hidden" name="livesystem" value="1">
               <input type="hidden" name="commissionreduction" value="">
@@ -849,6 +864,20 @@
             <div class="pay-window__loader" id="payLoader">טוען טופס תשלום מאובטח…</div>
             <iframe name="upayIframe" id="upayIframe" title="טופס תשלום מאובטח של UPAY"></iframe>
           </div>
+        </div>
+
+        <!-- טופס ליד חם: מוסתר עד ש-LEAD_WEBHOOK_URL מוגדר בסקריפט למטה.
+             בכוונה בלי class="rv" — ה-IntersectionObserver לא צופה באלמנטים שמוסתרים בטעינה,
+             ו-rv היה משאיר את הקופסה ב-opacity:0 לנצח -->
+        <div class="lead-box" id="leadBox" hidden>
+          <p class="lead-box__title display">עדיין מתלבטים? <span class="accent">נשלח לך את כל הפרטים.</span></p>
+          <p class="lead-box__sub">שם וטלפון — והסילבוס המלא אצלך בוואטסאפ.</p>
+          <form class="lead-form" id="leadForm" novalidate>
+            <input type="text" name="fullname" placeholder="שם מלא" required autocomplete="name" aria-label="שם מלא">
+            <input type="tel" name="phone" placeholder="טלפון נייד" required autocomplete="tel" inputmode="tel" aria-label="טלפון נייד">
+            <button type="submit" class="btn btn-gold">שלחו לי פרטים</button>
+          </form>
+          <p class="lead-form__msg" id="leadMsg" role="status"></p>
         </div>
       </div>
     </section>
@@ -1019,14 +1048,82 @@
         mag.addEventListener("mouseleave", function () { mag.style.transform = "translate(0,0)"; });
       }
 
-      // pass the distributor (utm_source) into UPAY's "comment" field — an internal
-      // note saved on the transaction in UPAY's reports, NOT shown to the buyer on
-      // the checkout page (unlike paymentdetails).
-      // (refername must stay "UPAY" — any other value is rejected: "wronginput refername")
+      // Distributor attribution (utm_source/utm_medium) — kept OFF the buyer-facing checkout.
+      // Rides on BOTH callback URLs, invisible to the payer:
+      //  • returnurl — PROVEN: UPAY preserves custom query params, so pay-return.html
+      //    receives the utm together with the transactionid (browser path).
+      //  • ipnurl — server-to-server backup, active only when ATTRIBUTION_WEBHOOK_URL is set.
+      // ⚠️ ATTRIBUTION_WEBHOOK_URL must be a DEDICATED webhook (tiny "landing events"
+      //    scenario). NEVER the ManyChat scenario's webhook — that one expects a
+      //    completely different payload and feeding it UPAY callbacks could corrupt
+      //    the live automation.
+      // (Do NOT put the source in comment/paymentdetails — UPAY shows those to the payer.)
       try {
-        var src = new URLSearchParams(window.location.search).get("utm_source");
-        var cm = document.getElementById("upay-comment");
-        if (cm && src) cm.value = "מפיץ: " + src.slice(0, 40);
+        var ATTRIBUTION_WEBHOOK_URL = "https://hook.eu2.make.com/mu61xo25bwjq2wojr7dzxkcldiofovrm"; // תרחיש "אירועי דף נחיתה" הייעודי
+        var qs = new URLSearchParams(window.location.search);
+        var src = (qs.get("utm_source") || "").slice(0, 60);
+        var med = (qs.get("utm_medium") || "").slice(0, 60);
+        if (src) {
+          var utmTail = "utm_source=" + encodeURIComponent(src) +
+                        (med ? "&utm_medium=" + encodeURIComponent(med) : "");
+          var ret = document.querySelector('.pay-form input[name="returnurl"]');
+          if (ret && ret.value.indexOf("utm_source=") === -1) {
+            ret.value += (ret.value.indexOf("?") === -1 ? "?" : "&") + utmTail;
+          }
+          if (ATTRIBUTION_WEBHOOK_URL) {
+            var ipn = document.querySelector('.pay-form input[name="ipnurl"]');
+            if (ipn) ipn.value = ATTRIBUTION_WEBHOOK_URL +
+              (ATTRIBUTION_WEBHOOK_URL.indexOf("?") === -1 ? "?" : "&") + utmTail;
+          }
+        }
+      } catch (e) {}
+
+      // warm-lead mini form → separate Make webhook (leads scenario).
+      // Empty LEAD_WEBHOOK_URL = the whole box stays hidden (safe default).
+      try {
+        var LEAD_WEBHOOK_URL = "https://hook.eu2.make.com/mu61xo25bwjq2wojr7dzxkcldiofovrm"; // אותו webhook ייעודי — הליד נשלח עם type=lead
+        var leadBox = document.getElementById("leadBox");
+        var leadForm = document.getElementById("leadForm");
+        var leadMsg = document.getElementById("leadMsg");
+        if (leadBox && leadForm && LEAD_WEBHOOK_URL) {
+          leadBox.hidden = false;
+          leadForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            var name = leadForm.fullname.value.trim();
+            // normalize +972 / 972 prefixes to the local 0-prefixed form before validating
+            var phone = leadForm.phone.value.replace(/[\s\-()]/g, "").replace(/^\+?972/, "0");
+            if (!name || !/^0\d{8,9}$/.test(phone)) {
+              leadMsg.textContent = "בדקו שהשם מלא והטלפון תקין (למשל 0501234567) ונסו שוב.";
+              return;
+            }
+            var btn = leadForm.querySelector("button");
+            btn.disabled = true;
+            leadMsg.textContent = "שולח…";
+            var lq = new URLSearchParams(location.search);
+            var body = new URLSearchParams({
+              type: "lead",
+              fullname: name,
+              phone: phone,
+              utm_source: (lq.get("utm_source") || "").slice(0, 60),
+              utm_medium: (lq.get("utm_medium") || "").slice(0, 60),
+              page: "nadlan"
+            });
+            // NOTE: no-cors resolves on ANY response (even 4xx/5xx) — .then does not
+            // prove Make accepted the lead. Verify the scenario end-to-end after
+            // pasting LEAD_WEBHOOK_URL with a real test submission.
+            fetch(LEAD_WEBHOOK_URL, {
+              method: "POST", mode: "no-cors",
+              headers: { "Content-Type": "application/x-www-form-urlencoded" },
+              body: body.toString()
+            }).then(function () {
+              leadForm.hidden = true;
+              leadMsg.textContent = "קיבלנו! הפרטים המלאים בדרך אליך לוואטסאפ 🙌";
+            }).catch(function () {
+              btn.disabled = false;
+              leadMsg.textContent = "משהו השתבש — אפשר גם לכתוב לנו ישירות בוואטסאפ (למטה בעמוד).";
+            });
+          });
+        }
       } catch (e) {}
 
       // embedded UPAY checkout: card payments stay inside the branded in-page iframe

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#1a2410" />
+  <meta name="theme-color" content="#1b2114" />
 
   <title>קורס נדל״ן | שווים יותר · קהילת משרתי המילואים</title>
   <meta name="description" content="קורס הנדל״ן של קהילת שווים יותר: מהשטח לשוק הנדל״ן. סוגי עסקאות, מימון ומשכנתאות, מיסוי ופרקטיקה מהשטח, בהתאמה למשרתי מילואים וכוחות הביטחון." />
@@ -440,6 +440,20 @@
       /* reveals travel further and settle with a slight scale — motion you can feel */
       body.js .rv { transform: translateY(36px) scale(.97); transition-duration: .85s, .85s; }
       body.js .rv.in { transform: none; }
+      /* cards enter alternating from the sides, and their shadow is born on landing */
+      body.js .aud-card.rv:nth-child(odd), body.js .mentor-card.rv:nth-child(odd) { transform: translate(-44px, 18px) scale(.97); }
+      body.js .aud-card.rv:nth-child(even), body.js .mentor-card.rv:nth-child(even) { transform: translate(44px, 18px) scale(.97); }
+      body.js .aud-card.rv.in, body.js .mentor-card.rv.in { transform: none; }
+      body.js .rv { transition-property: opacity, transform, box-shadow; transition-duration: .85s, .85s, 1.2s; }
+      body.js .aud-card.rv:not(.in), body.js .mentor-card.rv:not(.in),
+      body.js .syl details.rv:not(.in), body.js .faq details.rv:not(.in),
+      body.js .chat-screen.rv:not(.in), body.js .price-card.rv:not(.in) { box-shadow: none; }
+      /* the gold eyebrow line draws itself when a section arrives */
+      body.js .section__head.rv .eyebrow::before { width: 0; transition: width .9s var(--ease) .25s; }
+      body.js .section__head.rv.in .eyebrow::before { width: 42px; }
+      /* gentle scroll parallax targets (JS drives --plxy) */
+      body.js .gal figure.rv.in { transform: translateY(var(--plxy, 0px)); transition: opacity .85s var(--ease); }
+      body.js .chat-screen.rv.in { transform: translateY(var(--plxy, 0px)); transition: opacity .85s var(--ease), box-shadow 1.2s var(--ease); }
     }
 
     @media (max-width: 640px) {
@@ -476,8 +490,13 @@
         background: linear-gradient(105deg, transparent, rgba(255,255,255,.38), transparent);
         animation: shine 3.8s ease-in-out infinite;
       }
-      /* the fixed hero grain renders differently on iOS — flatten it there for identical colors */
-      .hero::after { mix-blend-mode: normal; opacity: .07; }
+      /* color parity with desktop: there the 45% grain overlay visually mutes the
+         olive; phones (OLED + P3) show the raw hue much greener. So on mobile the
+         base tones are desaturated toward the desktop LOOK, and the grain runs at
+         normal blend (iOS renders blend-modes differently) at a moderate opacity */
+      :root { --bg: #1b2114; --bg-lift: #28301e; }
+      .hero::after { mix-blend-mode: normal; opacity: .13; }
+      .marquee { background: rgba(24,28,17,.93); }
       .marquee { bottom: calc(76px + env(safe-area-inset-bottom)); }
       .marquee__track span { font-size: 14px; padding: 10px 18px; }
       body { padding-bottom: 132px; }
@@ -514,14 +533,9 @@
       .btn-line { text-align: center; }
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      .marquee__track, .scroll-cue .bar::after, .topbar__status .pulse, .mobile-cta .btn::after { animation: none !important; }
-      /* reduce-motion users still get a gentle opacity-only reveal (no movement) —
-         a full kill-switch made the page feel broken on iPhones with Reduce Motion on */
-      body.js .rv { transform: none !important; transition: opacity .5s ease !important; transition-delay: 0s !important; }
-      .gal img, .gal figure:hover img { transition: none; transform: none !important; }
-      .hero__mark { transform: none !important; }
-    }
+    /* NOTE: motion runs for everyone — Tom's explicit call (09.07.26): the page's
+       animations ARE part of the product, and iPhones with Reduce Motion on were
+       getting a dead page. The prefers-reduced-motion suppression was removed. */
   </style>
 </head>
 <body>
@@ -984,7 +998,7 @@
   <script>
     (function () {
       document.body.classList.add("js");
-      var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var reduce = false; // תנועה תמיד — החלטת טום 09.07.26 (Reduce Motion באייפון השאיר דף מת)
       if (window.gsap && !reduce) {
         var tl = gsap.timeline({ defaults: { ease: "power4.out" } });
         tl.from(".hero .eyebrow", { y: 18, opacity: 0, duration: .7 })
@@ -1026,6 +1040,31 @@
             ticking = false;
           });
         }, { passive: true });
+      }
+
+      // gentle scroll parallax on phones: gallery photos and the chat screen drift
+      // a little against the scroll — depth you can feel without heavy effects
+      if (window.matchMedia("(pointer: coarse)").matches) {
+        var plx = Array.prototype.slice.call(document.querySelectorAll(".gal figure, .chat-screen"));
+        if (plx.length) {
+          var pticking = false;
+          var onPlx = function () {
+            if (pticking) return;
+            pticking = true;
+            requestAnimationFrame(function () {
+              var vh = window.innerHeight;
+              plx.forEach(function (el) {
+                var r = el.getBoundingClientRect();
+                if (r.bottom < 0 || r.top > vh) return;
+                var off = (r.top + r.height / 2 - vh / 2) / vh;
+                el.style.setProperty("--plxy", (off * -16).toFixed(1) + "px");
+              });
+              pticking = false;
+            });
+          };
+          window.addEventListener("scroll", onPlx, { passive: true });
+          onPlx();
+        }
       }
 
       // scroll reveals for the sections below the hero

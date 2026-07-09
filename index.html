@@ -249,8 +249,6 @@
     .pay-fallback:hover { color: var(--gold-soft); }
     /* Bit needs a full-page checkout (its app can't open from inside an iframe),
        so touch devices get a second, clearly-labelled button. */
-    .price-card .pay-bit { width: 100%; text-align: center; margin-top: 10px; background: transparent; color: var(--cream); border: 1.5px solid rgba(232,189,87,.55); }
-    .price-card .pay-bit:not([hidden]) { display: inline-flex; }
 
     /* embedded UPAY checkout window */
     .pay-window { margin-top: 24px; border: 1px solid rgba(232,189,87,.45); border-radius: 20px; overflow: hidden; box-shadow: 0 30px 70px -30px rgba(0,0,0,.7); }
@@ -676,7 +674,6 @@
           </details>
         </div>
 
-        <p class="syl-note">התאריכים: ימי שלישי · 11.8 · 18.8 · 25.8 · 1.9 · 8.9. הפורמט (זום/פרונטלי), השעות והמיקומים מבוססים על המחזור הקודם, <span class="ph">לאישור סופי למחזור זה</span>.</p>
       </div>
     </section>
 
@@ -765,7 +762,7 @@
             <span class="chat-bar__ava" aria-hidden="true">שי</span>
             <div>
               <div class="chat-bar__name">בוגרי קורס נדל״ן · שווים יותר</div>
-              <div class="chat-bar__status">‏18 חברים</div>
+              <div class="chat-bar__status">‏57 חברים</div>
             </div>
             <span class="chat-bar__spacer"></span>
             <span class="chat-bar__icons" aria-hidden="true">
@@ -843,8 +840,7 @@
               <input type="hidden" name="lang" value="HE">
               <input type="hidden" name="currency" value="NIS">
               <button type="submit" class="btn btn-gold btn-lg pay-submit">להרשמה ותשלום מאובטח&nbsp;←</button>
-              <button type="submit" formtarget="_top" class="btn btn-lg pay-bit" hidden>לתשלום בביט 📱</button>
-              <button type="submit" formtarget="_blank" class="pay-fallback">לא נטען? לתשלום בחלון נפרד</button>
+              <button type="submit" formtarget="_blank" class="pay-fallback">אפשר גם לשלם בדף נפרד ←</button>
             </form>
             <p class="price-card__secure">תשלום מאובטח באמצעות UPAY</p>
           </div>
@@ -870,8 +866,8 @@
              בכוונה בלי class="rv" — ה-IntersectionObserver לא צופה באלמנטים שמוסתרים בטעינה,
              ו-rv היה משאיר את הקופסה ב-opacity:0 לנצח -->
         <div class="lead-box" id="leadBox" hidden>
-          <p class="lead-box__title display">עדיין מתלבטים? <span class="accent">נשלח לך את כל הפרטים.</span></p>
-          <p class="lead-box__sub">שם וטלפון — והסילבוס המלא אצלך בוואטסאפ.</p>
+          <p class="lead-box__title display">עדיין מתלבטים? <span class="accent">נשלח לך הכול לוואטסאפ.</span></p>
+          <p class="lead-box__sub">השאירו שם וטלפון ותקבלו: הסילבוס המלא, מועדי המפגשים והמחיר לחברי הקהילה — בלי שום התחייבות.</p>
           <form class="lead-form" id="leadForm" novalidate>
             <input type="text" name="fullname" placeholder="שם מלא" required autocomplete="name" aria-label="שם מלא">
             <input type="tel" name="phone" placeholder="טלפון נייד" required autocomplete="tel" inputmode="tel" aria-label="טלפון נייד">
@@ -1134,13 +1130,10 @@
       var payWindow = document.getElementById("payWindow");
       var payIframe = document.getElementById("upayIframe");
       var payLoader = document.getElementById("payLoader");
-      var payBit = document.querySelector(".pay-bit");
-      var touchDevice = window.matchMedia("(pointer: coarse)").matches;
-      if (payBit && touchDevice) payBit.hidden = false;
       if (payForm && payWindow) {
         payForm.addEventListener("submit", function (e) {
           // fallback tab + Bit full-page leave the page; only the embedded flow reveals the iframe
-          if (e.submitter && (e.submitter.classList.contains("pay-fallback") || e.submitter.classList.contains("pay-bit"))) return;
+          if (e.submitter && e.submitter.classList.contains("pay-fallback")) return;
           payWindow.hidden = false;
           if (payLoader) payLoader.style.display = "";
           setTimeout(function () { payWindow.scrollIntoView({ behavior: "smooth", block: "start" }); }, 60);

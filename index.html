@@ -599,7 +599,7 @@
         <div class="section__head">
           <p class="eyebrow">הסילבוס · 5 מפגשים</p>
           <h2 class="section__title display">מהיסודות של הנדל״ן<br>עד <span class="accent">עסקה אמיתית</span>.</h2>
-          <p class="section__lead">כל מפגש בהנחיית מומחה מהתחום: תיאוריה, כלים פרקטיים וניתוח עסקאות מהשוק, עד חלוקת תעודות בסיום. לחצו על כל מפגש לפרטים.</p>
+          <p class="section__lead">כל מפגש בהנחיית מומחה מהתחום: תיאוריה, כלים פרקטיים וניתוח עסקאות מהשוק. לחצו על כל מפגש לפרטים.</p>
         </div>
 
         <div class="syl">
@@ -663,12 +663,12 @@
             <summary>
               <span class="syl__num">05</span>
               <span class="syl__date">8.9</span>
-              <span class="syl__title">פרקטיקה וניתוח מהשטח</span>
+              <span class="syl__title">אסטרטגיות השקעה ופרקטיקה מהשטח</span>
               <svg class="syl__chev" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </summary>
             <div class="syl__body">
-              <span class="syl__badge">מפגש סיכום · פרונטלי</span>
-              <p>סוגרים מעגל: מנתחים יחד עסקאות אמיתיות מהשוק, מתרגלים משא ומתן בסימולציות, עונים על כל השאלות שנשארו, ולסיום חוגגים עם חלוקת תעודות.</p>
+              <span class="syl__badge">מפגש סיכום · פרונטלי + זום</span>
+              <p>סוגרים מעגל: מנתחים יחד עסקאות אמיתיות מהשוק, מתרגלים משא ומתן בסימולציות, ועונים על כל השאלות שנשארו.</p>
               <p class="syl__who">מרצה: דור נוימן</p>
             </div>
           </details>
@@ -755,7 +755,7 @@
       <div class="wrap">
         <div class="section__head">
           <p class="eyebrow">הודעות אמיתיות מהבוגרים</p>
-          <h2 class="section__title display">מה כותבים לנו <span class="accent">אחרי הקורס.</span></h2>
+          <h2 class="section__title display">בוגרי הקורס <span class="accent">כותבים לנו:</span></h2>
         </div>
         <div class="chat-screen">
           <div class="chat-bar">
@@ -862,19 +862,9 @@
           </div>
         </div>
 
-        <!-- טופס ליד חם: מוסתר עד ש-LEAD_WEBHOOK_URL מוגדר בסקריפט למטה.
-             בכוונה בלי class="rv" — ה-IntersectionObserver לא צופה באלמנטים שמוסתרים בטעינה,
-             ו-rv היה משאיר את הקופסה ב-opacity:0 לנצח -->
-        <div class="lead-box" id="leadBox" hidden>
-          <p class="lead-box__title display">עדיין מתלבטים? <span class="accent">נשלח לך הכול לוואטסאפ.</span></p>
-          <p class="lead-box__sub">השאירו שם וטלפון ותקבלו: הסילבוס המלא, מועדי המפגשים והמחיר לחברי הקהילה — בלי שום התחייבות.</p>
-          <form class="lead-form" id="leadForm" novalidate>
-            <input type="text" name="fullname" placeholder="שם מלא" required autocomplete="name" aria-label="שם מלא">
-            <input type="tel" name="phone" placeholder="טלפון נייד" required autocomplete="tel" inputmode="tel" aria-label="טלפון נייד">
-            <button type="submit" class="btn btn-gold">שלחו לי פרטים</button>
-          </form>
-          <p class="lead-form__msg" id="leadMsg" role="status"></p>
-        </div>
+        <!-- טופס הלידים ("עדיין מתלבטים") הוסר לבקשת טום 09.07.26 — התשתית
+             (LEAD_WEBHOOK_URL + sync_leads) נשארת חיה לשימוש עתידי -->
+
       </div>
     </section>
 

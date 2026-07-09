@@ -54,6 +54,7 @@
     }
     .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
     a { color: inherit; text-decoration: none; }
+    html { overflow-x: hidden; }
     ::selection { background: var(--gold); color: #241c00; }
 
     .display { font-family: "Heebo", "Assistant", sans-serif; }
@@ -154,6 +155,15 @@
     .hero__title .line { display: block; overflow: hidden; padding-bottom: .05em; }
     .hero__title .line > span { display: block; }
     .hero__title .accent { color: var(--gold); }
+    /* the hero is pre-hidden by CSS so the first paint can never flash-then-jump
+       while GSAP boots; the timeline animates TO the final state. .no-gsap releases
+       everything instantly if the CDN fails to load. */
+    body.js:not(.no-gsap) .hero .eyebrow { opacity: 0; transform: translateY(18px); }
+    body.js:not(.no-gsap) .hero__title .line > span { transform: translateY(110%); }
+    body.js:not(.no-gsap) .hero__sub { opacity: 0; transform: translateY(22px); }
+    body.js:not(.no-gsap) .hero__cta > * { opacity: 0; transform: translateY(20px); }
+    body.js:not(.no-gsap) .hero__foot .stat, body.js:not(.no-gsap) .scroll-cue { opacity: 0; transform: translateY(24px); }
+    body.js:not(.no-gsap) .hero__mark { opacity: 0; }
 
     .hero__sub {
       margin: 28px 0 0; max-width: 44ch; font-size: clamp(17px, 1.9vw, 21px);
@@ -440,20 +450,24 @@
       /* reveals travel further and settle with a slight scale — motion you can feel */
       body.js .rv { transform: translateY(36px) scale(.97); transition-duration: .85s, .85s; }
       body.js .rv.in { transform: none; }
-      /* cards enter alternating from the sides, and their shadow is born on landing */
+      /* cards enter alternating from the sides; the shadow is born on landing.
+         shadow animates ONLY on these few cards — animating big blurred shadows
+         everywhere caused visible scroll jank on iOS */
+      body.js .aud-card.rv, body.js .mentor-card.rv {
+        transition-property: opacity, transform, box-shadow;
+        transition-duration: .85s, .85s, 1.1s;
+      }
       body.js .aud-card.rv:nth-child(odd), body.js .mentor-card.rv:nth-child(odd) { transform: translate(-44px, 18px) scale(.97); }
       body.js .aud-card.rv:nth-child(even), body.js .mentor-card.rv:nth-child(even) { transform: translate(44px, 18px) scale(.97); }
+      body.js .aud-card.rv:not(.in), body.js .mentor-card.rv:not(.in) { box-shadow: none; }
       body.js .aud-card.rv.in, body.js .mentor-card.rv.in { transform: none; }
-      body.js .rv { transition-property: opacity, transform, box-shadow; transition-duration: .85s, .85s, 1.2s; }
-      body.js .aud-card.rv:not(.in), body.js .mentor-card.rv:not(.in),
-      body.js .syl details.rv:not(.in), body.js .faq details.rv:not(.in),
-      body.js .chat-screen.rv:not(.in), body.js .price-card.rv:not(.in) { box-shadow: none; }
       /* the gold eyebrow line draws itself when a section arrives */
       body.js .section__head.rv .eyebrow::before { width: 0; transition: width .9s var(--ease) .25s; }
       body.js .section__head.rv.in .eyebrow::before { width: 42px; }
-      /* gentle scroll parallax targets (JS drives --plxy) */
-      body.js .gal figure.rv.in { transform: translateY(var(--plxy, 0px)); transition: opacity .85s var(--ease); }
-      body.js .chat-screen.rv.in { transform: translateY(var(--plxy, 0px)); transition: opacity .85s var(--ease), box-shadow 1.2s var(--ease); }
+      /* gentle scroll parallax on the chat screen ONLY — the gallery lives in CSS
+         columns, and transforming column items shimmers/flickers on Safari */
+      body.js .chat-screen { will-change: transform; }
+      body.js .chat-screen.rv.in { transform: translate3d(0, var(--plxy, 0px), 0); transition: opacity .85s var(--ease); }
     }
 
     @media (max-width: 640px) {
@@ -539,6 +553,9 @@
   </style>
 </head>
 <body>
+  <!-- the js class must exist BEFORE first paint — added at the end of the page it
+       caused a visible flash: content painted, then hid, then animated back in -->
+  <script>document.body.classList.add("js");</script>
 
   <!-- TOP BAR -->
   <header class="topbar">
@@ -997,16 +1014,16 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script>
     (function () {
-      document.body.classList.add("js");
       var reduce = false; // תנועה תמיד — החלטת טום 09.07.26 (Reduce Motion באייפון השאיר דף מת)
       if (window.gsap && !reduce) {
+        // the hero starts CSS-hidden (no flash-then-jump) — animate TO the final state
         var tl = gsap.timeline({ defaults: { ease: "power4.out" } });
-        tl.from(".hero .eyebrow", { y: 18, opacity: 0, duration: .7 })
-          .from(".hero__title .line > span", { yPercent: 110, duration: 1, stagger: .12 }, "-=.35")
-          .from(".hero__sub", { y: 22, opacity: 0, duration: .8 }, "-=.6")
-          .from(".hero__cta > *", { y: 20, opacity: 0, duration: .7, stagger: .1 }, "-=.55")
-          .from(".hero__foot .stat, .scroll-cue", { y: 24, opacity: 0, duration: .7, stagger: .08 }, "-=.5")
-          .from(".hero__mark", { opacity: 0, duration: 1.4 }, 0);
+        tl.to(".hero .eyebrow", { y: 0, opacity: 1, duration: .7 })
+          .to(".hero__title .line > span", { y: 0, duration: 1, stagger: .12 }, "-=.35")
+          .to(".hero__sub", { y: 0, opacity: 1, duration: .8 }, "-=.6")
+          .to(".hero__cta > *", { y: 0, opacity: 1, duration: .7, stagger: .1 }, "-=.55")
+          .to(".hero__foot .stat, .scroll-cue", { y: 0, opacity: 1, duration: .7, stagger: .08 }, "-=.5")
+          .to(".hero__mark", { opacity: 1, duration: 1.4 }, 0);
 
         // count-up on the hero stats
         document.querySelectorAll(".stat b[data-count]").forEach(function (el) {
@@ -1019,6 +1036,8 @@
             onUpdate: function () { el.textContent = o.v.toFixed(dec); }
           }, "-=.9");
         });
+      } else {
+        document.body.classList.add("no-gsap"); // CDN חסום/נכשל — לשחרר את ה-hero מיד
       }
 
       // solid topbar once the page is scrolled
@@ -1042,10 +1061,10 @@
         }, { passive: true });
       }
 
-      // gentle scroll parallax on phones: gallery photos and the chat screen drift
-      // a little against the scroll — depth you can feel without heavy effects
+      // gentle scroll parallax on phones: the chat screen drifts a little against
+      // the scroll (gallery excluded — transforms inside CSS columns flicker on Safari)
       if (window.matchMedia("(pointer: coarse)").matches) {
-        var plx = Array.prototype.slice.call(document.querySelectorAll(".gal figure, .chat-screen"));
+        var plx = Array.prototype.slice.call(document.querySelectorAll(".chat-screen"));
         if (plx.length) {
           var pticking = false;
           var onPlx = function () {

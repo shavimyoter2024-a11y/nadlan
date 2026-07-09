@@ -437,6 +437,9 @@
       /* chat bubbles pop in like incoming messages */
       body.js .bubble.rv { transform: translateY(18px) scale(.96); }
       body.js .bubble.rv.in { transform: none; }
+      /* reveals travel further and settle with a slight scale — motion you can feel */
+      body.js .rv { transform: translateY(36px) scale(.97); transition-duration: .85s, .85s; }
+      body.js .rv.in { transform: none; }
     }
 
     @media (max-width: 640px) {
@@ -478,6 +481,32 @@
       .marquee { bottom: calc(76px + env(safe-area-inset-bottom)); }
       .marquee__track span { font-size: 14px; padding: 10px 18px; }
       body { padding-bottom: 132px; }
+
+      /* mobile depth: the web gets this feel from hover states — phones get real
+         surfaces baked in: gradient light from above, inner highlight, tinted shadow */
+      .aud-card, .mentor-card {
+        background: linear-gradient(180deg, rgba(243,241,230,.06), rgba(243,241,230,.015));
+        box-shadow: inset 0 1px 0 rgba(243,241,230,.09), 0 18px 38px -20px rgba(8,12,3,.8);
+      }
+      .syl details, .faq details {
+        border: 1px solid var(--line); border-radius: 16px; margin-bottom: 10px;
+        background: linear-gradient(180deg, rgba(243,241,230,.05), rgba(243,241,230,.012));
+        box-shadow: inset 0 1px 0 rgba(243,241,230,.07), 0 14px 30px -18px rgba(8,12,3,.75);
+        overflow: hidden;
+      }
+      .syl summary, .faq summary { padding-inline: 16px; }
+      .syl__body, .faq__body { padding-inline: 16px; }
+      .stats {
+        border: 1px solid var(--line); border-radius: 18px; overflow: hidden;
+        background: linear-gradient(180deg, rgba(243,241,230,.055), rgba(243,241,230,.01));
+        box-shadow: inset 0 1px 0 rgba(243,241,230,.09), 0 22px 44px -22px rgba(8,12,3,.85);
+      }
+      .price-card {
+        box-shadow: 0 0 0 1px rgba(243,241,230,.08), 0 34px 80px -34px rgba(8,12,3,.9),
+                    0 0 60px -18px rgba(232,189,87,.22), inset 0 1px 0 rgba(243,241,230,.08);
+      }
+      .chat-screen { box-shadow: 0 26px 60px -26px rgba(8,12,3,.85); }
+      .btn-gold { box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 12px 26px -12px rgba(232,189,87,.45); }
     }
     @media (max-width: 480px) {
       .hero__cta { flex-direction: column; align-items: stretch; }
@@ -487,7 +516,9 @@
 
     @media (prefers-reduced-motion: reduce) {
       .marquee__track, .scroll-cue .bar::after, .topbar__status .pulse, .mobile-cta .btn::after { animation: none !important; }
-      body.js .rv { opacity: 1 !important; transform: none !important; transition: none !important; }
+      /* reduce-motion users still get a gentle opacity-only reveal (no movement) —
+         a full kill-switch made the page feel broken on iPhones with Reduce Motion on */
+      body.js .rv { transform: none !important; transition: opacity .5s ease !important; transition-delay: 0s !important; }
       .gal img, .gal figure:hover img { transition: none; transform: none !important; }
       .hero__mark { transform: none !important; }
     }
@@ -1015,7 +1046,9 @@
         while ((s = s.previousElementSibling)) { if (s.classList.contains("rv")) i++; }
         el.style.setProperty("--d", Math.min(i * 0.07, 0.42) + "s");
       });
-      if ("IntersectionObserver" in window && !reduce) {
+      // IO runs even under prefers-reduced-motion — the CSS decides what animates
+      // (fade-only there); skipping it entirely left those users a dead-feeling page
+      if ("IntersectionObserver" in window) {
         var io = new IntersectionObserver(function (entries) {
           entries.forEach(function (en) {
             if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }

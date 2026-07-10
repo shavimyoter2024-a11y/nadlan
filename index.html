@@ -257,8 +257,16 @@
     .price-card .pay-submit { width: 100%; text-align: center; }
     .pay-fallback { margin-top: 12px; background: transparent; color: var(--muted); font-family: inherit; font-size: 13.5px; border: 0; cursor: pointer; text-decoration: underline; }
     .pay-fallback:hover { color: var(--gold-soft); }
-    /* Bit needs a full-page checkout (its app can't open from inside an iframe),
-       so touch devices get a second, clearly-labelled button. */
+    /* Bit can't open its app from inside an iframe (white page) — so Bit gets its
+       own button that submits the SAME form to a full checkout in a new tab. */
+    .pay-bit {
+      width: 100%; margin-top: 10px; padding: 13px 24px; border-radius: 100px;
+      background: rgba(243,241,230,.06); border: 1px solid var(--line-2);
+      color: var(--cream); font-family: inherit; font-size: 15.5px; font-weight: 700; cursor: pointer;
+      transition: border-color .25s, color .25s;
+    }
+    .pay-bit:hover { border-color: var(--gold); color: var(--gold-soft); }
+    @media (pointer: coarse) { .pay-bit:active { border-color: var(--gold); color: var(--gold-soft); } }
 
     /* embedded UPAY checkout window */
     .pay-window { margin-top: 24px; border: 1px solid rgba(232,189,87,.45); border-radius: 20px; overflow: hidden; box-shadow: 0 30px 70px -30px rgba(0,0,0,.7); }
@@ -902,6 +910,7 @@
               <input type="hidden" name="lang" value="HE">
               <input type="hidden" name="currency" value="NIS">
               <button type="submit" class="btn btn-gold btn-lg pay-submit">להרשמה ותשלום מאובטח&nbsp;←</button>
+              <button type="submit" formtarget="_blank" class="pay-bit">משלמים בביט? לחצו כאן 📱 (נפתח בדף נפרד)</button>
               <button type="submit" formtarget="_blank" class="pay-fallback">אפשר גם לשלם בדף נפרד ←</button>
             </form>
             <p class="price-card__secure">תשלום מאובטח באמצעות UPAY</p>
@@ -1206,7 +1215,8 @@
       if (payForm && payWindow) {
         payForm.addEventListener("submit", function (e) {
           // fallback tab + Bit full-page leave the page; only the embedded flow reveals the iframe
-          if (e.submitter && e.submitter.classList.contains("pay-fallback")) return;
+          if (e.submitter && (e.submitter.classList.contains("pay-fallback") ||
+                              e.submitter.classList.contains("pay-bit"))) return;
           payWindow.hidden = false;
           if (payLoader) payLoader.style.display = "";
           setTimeout(function () { payWindow.scrollIntoView({ behavior: "smooth", block: "start" }); }, 60);

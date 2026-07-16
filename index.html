@@ -1254,18 +1254,22 @@
         } catch (e2) {}
         var src = (qs.get("utm_source") || qs.get("source") || "").slice(0, 60);
         var med = (qs.get("utm_medium") || qs.get("medium") || "").slice(0, 60);
-        if (src) {
-          var utmTail = "utm_source=" + encodeURIComponent(src) +
-                        (med ? "&utm_medium=" + encodeURIComponent(med) : "");
+        var utmTail = src ? "utm_source=" + encodeURIComponent(src) +
+                      (med ? "&utm_medium=" + encodeURIComponent(med) : "") : "";
+        if (utmTail) {
           var ret = document.querySelector('.pay-form input[name="returnurl"]');
           if (ret && ret.value.indexOf("utm_source=") === -1) {
             ret.value += (ret.value.indexOf("?") === -1 ? "?" : "&") + utmTail;
           }
-          if (ATTRIBUTION_WEBHOOK_URL) {
-            var ipn = document.querySelector('.pay-form input[name="ipnurl"]');
-            if (ipn) ipn.value = ATTRIBUTION_WEBHOOK_URL +
-              (ATTRIBUTION_WEBHOOK_URL.indexOf("?") === -1 ? "?" : "&") + utmTail;
-          }
+        }
+        if (ATTRIBUTION_WEBHOOK_URL) {
+          // ה-ipnurl נשלח תמיד (16.07.26, יישור לשוק ההון): כל תשלום מדווח לפנקס
+          // שרת-לשרת ומצלצל בפעמון הסנכרון המיידי — כולל משלם ביט בלי קישור מפיץ
+          // שלא חוזר לדף התודה (לפני כן תשלום כזה חיכה לסריקה המתוזמנת).
+          var ipn = document.querySelector('.pay-form input[name="ipnurl"]');
+          if (ipn) ipn.value = ATTRIBUTION_WEBHOOK_URL +
+            (ATTRIBUTION_WEBHOOK_URL.indexOf("?") === -1 ? "?" : "&") +
+            "page=nadlan" + (utmTail ? "&" + utmTail : "");
         }
       } catch (e) {}
 

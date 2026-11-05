@@ -459,7 +459,7 @@
             <a class="btn btn--arrow" href="#register" data-cta="hero">להרשמה לקורס</a>
             <a class="link-more" href="#syllabus" data-cta="hero-syllabus">לצפייה בסילבוס&nbsp;↓</a>
           </div>
-          <span class="hero__promo">🔥 הטבה: 400 ₪ במקום 500 ₪ · עד 5.11</span>
+          <span class="hero__promo">🔥 הטבה: 400 ₪ במקום 500 ₪ · עד 8.11</span>
           <div class="stats">
             <div class="stat"><b>5</b><span>מפגשים</span></div>
             <div class="stat"><b>2.12</b><span>מחזור נפתח</span></div>
@@ -726,14 +726,14 @@
             <div class="pc"><b id="pcMins">00</b><span>דקות</span></div>
             <div class="pc"><b id="pcSecs">00</b><span>שניות</span></div>
           </div>
-          <div class="promo-strip__sub">ההטבה מסתיימת ביום חמישי 5.11 בחצות, ואז המחיר חוזר ל-500 ₪</div>
+          <div class="promo-strip__sub">ההטבה מסתיימת ביום ראשון 8.11 בחצות, ואז המחיר חוזר ל-500 ₪</div>
         </div>
 
         <div class="price-card">
           <div class="price-card__main">
             <span class="price-card__badge" id="priceBadge">מחיר מיוחד לחברי הקהילה</span>
             <div class="price-card__amount"><span id="priceNow">500</span><span class="cur">₪</span></div>
-            <p class="price-card__was promo-only">מחיר מלא <s>500 ₪</s> · ההטבה בתוקף עד 5.11</p>
+            <p class="price-card__was promo-only">מחיר מלא <s>500 ₪</s> · ההטבה בתוקף עד 8.11</p>
             <p class="price-card__meta">לכל הקורס · 5 מפגשים · נפתחים ב-2.12</p>
             <!-- טופס תשלום UPAY: זהה לגרסה החיה (שדות, ערכים, יעדים). מחיר חי 500; בחלון ההטבה ה-JS מוריד amount ל-400. -->
             <form class="pay-form" name="upayform" action="https://app.upay.co.il/API6/clientsecure/redirectpage.php" method="post" target="upayIframe">
@@ -975,12 +975,12 @@
         new IntersectionObserver(function (e) { regIn = e[0].isIntersecting; upd(); }, { threshold: 0.05 }).observe(reg);
       }
 
-      // ---- הטבת מחזור דצמבר: מעכשיו (25.10, הוקדם לבקשת טום) עד חמישי 5.11 23:59 (שעון חורף +02:00; הוארך מ-2.11 לבקשת טום 03.11.26) ----
+      // ---- הטבת מחזור דצמבר: מעכשיו (25.10, הוקדם לבקשת טום) עד ראשון 8.11 23:59 (שעון חורף +02:00; הוארך לבקשת טום 03.11.26 ו-05.11.26) ----
       // בתוך חלון ההטבה ה-JS מוריד את המחיר ל-₪400, חושף את פס המבצע והשעון ומעדכן את
       // המלל; בסוף המבצע הכל חוזר לבד. בלי JS הדף נשאר על המחיר המלא (ברירת מחדל בטוחה).
       try {
         var PROMO_START = new Date("2026-10-25T00:00:00+02:00").getTime();
-        var PROMO_END   = new Date("2026-11-05T23:59:59+02:00").getTime();
+        var PROMO_END   = new Date("2026-11-08T23:59:59+02:00").getTime();
         var PROMO_PRICE = 400, FULL_PRICE = 500;
         var pEls = {
           amount: document.querySelector('.pay-form input[name="amount"]'),
@@ -1016,10 +1016,10 @@
           if (pEls.amount) pEls.amount.value = String(on ? PROMO_PRICE : FULL_PRICE);
           if (pEls.priceNow) pEls.priceNow.textContent = String(on ? PROMO_PRICE : FULL_PRICE);
           if (pEls.badge) pEls.badge.textContent = on ? "🔥 הטבה לזמן מוגבל" : pSaved.badge;
-          if (pEls.topbar) pEls.topbar.textContent = on ? "הטבה עד 5.11: 400 ₪ במקום 500 ₪" : pSaved.topbar;
+          if (pEls.topbar) pEls.topbar.textContent = on ? "הטבה עד 8.11: 400 ₪ במקום 500 ₪" : pSaved.topbar;
           if (pEls.mobileCta) pEls.mobileCta.textContent = on ? "להרשמה בהטבה · 400 ₪" : pSaved.mobileCta;
           if (pEls.faq) pEls.faq.textContent = on
-            ? "הטבה עד 5.11: 400 ₪ במקום 500 ₪ לחברי הקהילה, לכל הקורס: 5 מפגשים בהנחיית מומחים, הקלטות של כל המפגשים, כיבוד במפגש הפרונטלי ומענה מהמרצים. משלמים כאן בדף, בתשלום מאובטח (UPAY)."
+            ? "הטבה עד 8.11: 400 ₪ במקום 500 ₪ לחברי הקהילה, לכל הקורס: 5 מפגשים בהנחיית מומחים, הקלטות של כל המפגשים, כיבוד במפגש הפרונטלי ומענה מהמרצים. משלמים כאן בדף, בתשלום מאובטח (UPAY)."
             : pSaved.faq;
           if (on && !pTick) { tickFn(); pTick = setInterval(tickFn, 1000); }
           if (!on && pTick) { clearInterval(pTick); pTick = null; }

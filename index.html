@@ -288,6 +288,8 @@
     .cb__msg { text-align: center; font-size: 15px; font-weight: 700; min-height: 0; }
     .cb__msg:empty { display: none; }
     .cb__msg.err { color: #a12a1f; }
+    .cb__form[hidden], .cb__open[hidden] { display: none; }
+    .cb__open { display: block; width: calc(100% - 48px); margin: 16px 24px 20px; }
     .cb--done .cb__field, .cb--done .cb__btn, .cb--done .cb__note, .cb--done .cb__sub { display: none; }
     .price-card__secure { margin-top: 4px; display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-soft); }
     .price-card__list { list-style: none; margin: 0; padding: 24px; border-top: 1px solid var(--line); display: grid; gap: 12px; }
@@ -766,9 +768,11 @@
           <!-- "תחזרו אליי" (28.10.26): נשלח ל-Worker shavim-links, שפותח התעניינות לאוריאל בפיירברי -->
           <div class="cb">
             <div class="cb__or"><span>עוד מתלבטים?</span></div>
-            <form class="cb__form" id="cbForm" novalidate>
+            <!-- 09.11.26 לבקשת טום: הטופס סגור עד לחיצה על הכפתור -->
+            <button type="button" class="cb__btn cb__open" id="cbOpen" aria-expanded="false" aria-controls="cbForm">השאירו פרטים</button>
+            <form class="cb__form" id="cbForm" novalidate hidden>
               <p class="cb__title">נשמח לענות על כל שאלה</p>
-              <p class="cb__sub">השאירו פרטים ונחזור אליכם עוד היום</p>
+              <p class="cb__sub">נחזור אליכם עוד היום</p>
               <label class="cb__field">שם
                 <input type="text" name="name" autocomplete="name" required maxlength="80">
               </label>
@@ -1073,6 +1077,12 @@
       // "תחזרו אליי": שליחה ל-Worker (text/plain = בלי בקשת preflight), שם ההתעניינות נפתחת לאוריאל
       var cbForm = document.getElementById("cbForm");
       if (cbForm) {
+        var cbOpen = document.getElementById("cbOpen");
+        if (cbOpen) cbOpen.addEventListener("click", function () {
+          cbOpen.hidden = true; cbOpen.setAttribute("aria-expanded", "true");
+          cbForm.hidden = false;
+          cbForm.elements["name"].focus();
+        });
         var cbStarted = false;
         cbForm.addEventListener("focusin", function () {
           if (cbStarted) return; cbStarted = true;

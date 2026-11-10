@@ -12,13 +12,24 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Heebo:wght@800;900&display=swap" rel="stylesheet" />
 
-  <!-- GA4: זרם "דפי נחיתה". purchase = הגעה לדף התודה אחרי תשלום -->
+  <!-- GA4: זרם "דפי נחיתה". purchase רק כשיש מספר עסקה מ-pay-return, פעם אחת לכל עסקה (10/11: עד אז כל כניסה ורענון נספרו כרכישה) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-NR923MZ0BW"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){ dataLayer.push(arguments); }
     gtag("js", new Date()); gtag("config", "G-NR923MZ0BW");
-    gtag("event", "purchase", { currency: "ILS", items: [{ item_name: "קורס נדל״ן" }] });
+    (function () {
+      var q = new URLSearchParams(location.search);
+      var tx = (q.get("tx") || "").replace(/[^\w-]/g, "").slice(0, 64);
+      var v = Number(q.get("v")) || 490; // UPAY לא תמיד מחזיר סכום: ברירת מחדל = מחיר הקורס
+      if (!tx) return; // כניסה ישירה לדף התודה לא נספרת כרכישה
+      var key = "purchase_sent_" + tx, sent = false;
+      try { sent = localStorage.getItem(key) === "1"; } catch (e) {}
+      if (sent) return;
+      gtag("event", "purchase", { currency: "ILS", value: v, transaction_id: tx, page_id: "nadlan",
+        items: [{ item_name: "קורס נדל״ן", price: v, quantity: 1 }] });
+      try { localStorage.setItem(key, "1"); } catch (e) {}
+    })();
   </script>
 
   <style>
